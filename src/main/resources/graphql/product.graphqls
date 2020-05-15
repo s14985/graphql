@@ -1,0 +1,9 @@
+type Product {
+	id: ID!
+	name: String!
+	orderProducts: [OrderProduct]
+}
+
+type Query {
+	findAllProducts: [Product]!
+}

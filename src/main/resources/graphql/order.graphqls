@@ -1,0 +1,13 @@
+scalar DateTime
+
+type Order {
+	id: ID!
+	status: String
+	dateCreated: DateTime
+	orderProducts: [OrderProduct]
+	user: User
+}
+
+extend type Query {
+	findAllOrders: [Order]!
+}

@@ -1,0 +1,11 @@
+type OrderProduct {
+	id: ID!
+	order: Order
+	product: Product
+}
+
+extend type Query {
+	findAllOrdersProducts: [OrderProduct]!
+	findAllProductsFromOrdersByProductId(id: ID!): [OrderProduct]!
+	findProductsFromOrdersByProductId(id: ID!): [Product]!
+}

@@ -1,0 +1,25 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check": "npx prettier --check **/*.{java,graphqls}",
+    "format": "npx prettier --write **/*.{java,graphqls}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s14985/graphql.git"
+  },
+  "author": "s14985",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s14985/graphql/issues"
+  },
+  "homepage": "https://github.com/s14985/graphql#readme",
+  "devDependencies": {
+    "java-parser": "^0.7.1",
+    "prettier": "2.0.5",
+    "prettier-plugin-java": "^0.8.0"
+  }
+}
