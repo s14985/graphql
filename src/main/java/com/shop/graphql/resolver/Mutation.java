@@ -1,12 +1,14 @@
 package com.shop.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.shop.graphql.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class Mutation implements GraphQLMutationResolver {
+    private UserRepository userRepository;
     //    private BookRepository bookRepository;
     //    private AuthorRepository authorRepository;
     //
@@ -64,4 +66,10 @@ public class Mutation implements GraphQLMutationResolver {
     //
     //        return book;
     //    }
+
+//    public Order newOrder(Long userId) {
+//        Order order = new Order(Status.CREATED);
+//        order.setUser(userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("id", userId.toString())));
+//
+//    }
 }

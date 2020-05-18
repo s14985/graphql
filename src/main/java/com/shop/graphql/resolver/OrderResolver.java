@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class OrderResolver implements GraphQLResolver<Order> {
     private OrderProductRepository orderProductRepository;
     private UserRepository userRepository;
 
-    public Iterable<OrderProduct> getOrderProducts(Order order) {
+    public List<OrderProduct> getOrderProducts(Order order) {
         return orderProductRepository.findAllByOrder_Id(order.getId());
     }
 

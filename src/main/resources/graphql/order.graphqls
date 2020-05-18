@@ -2,10 +2,15 @@ scalar DateTime
 
 type Order {
 	id: ID!
-	status: String
+	status: Status
 	dateCreated: DateTime
 	orderProducts: [OrderProduct]
 	user: User
+}
+
+enum Status {
+	CREATED
+	FINISHED
 }
 
 extend type Query {
