@@ -4,23 +4,20 @@ import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.shop.graphql.model.Order;
 import com.shop.graphql.model.Role;
 import com.shop.graphql.model.User;
-import com.shop.graphql.repository.OrderRepository;
-import java.util.stream.Collectors;
+import com.shop.graphql.service.OrderServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class UserResolver implements GraphQLResolver<User> {
-	private OrderRepository orderRepository;
+    private OrderServiceImpl orderService;
 
-	public Iterable<Order> getOrders(User user) {
-		return orderRepository.findAllById(
-			user.getOrders().stream().map(Order::getId).collect(Collectors.toList())
-		);
-	}
+    public Iterable<Order> getOrders(User user) {
+        return orderService.getUserOrders(user);
+    }
 
-	public Role getRole(User user) {
-		return user.getUserType();
-	}
+    public Role getRole(User user) {
+        return user.getUserType();
+    }
 }

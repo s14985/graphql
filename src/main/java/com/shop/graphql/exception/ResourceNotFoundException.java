@@ -6,15 +6,33 @@ import graphql.language.SourceLocation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 
-public class OrderNotFoundException
+public class ResourceNotFoundException
 	extends RuntimeException
 	implements GraphQLError {
 	private Map<String, Object> extensions = new HashMap<>();
 
-	public OrderNotFoundException(String paramName, String param) {
-		super("Order with " + paramName + ": " + param + " not found.");
-		extensions.put("invalidOrder_" + paramName, param);
+	public ResourceNotFoundException(
+		String resourse,
+		String paramName,
+		String param
+	) {
+		super(
+			StringUtils.capitalize(resourse) +
+			" with " +
+			StringUtils.capitalize(paramName) +
+			": " +
+			param +
+			" not found."
+		);
+		extensions.put(
+			"invalid" +
+			StringUtils.capitalize(resourse) +
+			"_" +
+			StringUtils.capitalize(paramName),
+			param
+		);
 	}
 
 	@Override

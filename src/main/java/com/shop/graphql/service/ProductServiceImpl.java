@@ -1,6 +1,6 @@
 package com.shop.graphql.service;
 
-import com.shop.graphql.exception.ProductNotFoundException;
+import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Product;
 import com.shop.graphql.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProduct(@Min(value = 1L, message = "Invalid product ID.") Long id) {
+    public Product getProductById(
+            @Min(value = 1L, message = "Invalid product ID.") Long id
+    ) {
         return productRepository
                 .findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("id", id.toString()));
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("product", "id", id.toString())
+                );
     }
 
     @Override

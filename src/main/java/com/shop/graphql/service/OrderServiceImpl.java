@@ -1,6 +1,8 @@
 package com.shop.graphql.service;
 
+import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Order;
+import com.shop.graphql.model.User;
 import com.shop.graphql.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,18 +25,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order create(@NotNull(message = "The order cannot be null.") @Valid Order order) {
+    public Order create(
+            @NotNull(message = "The order cannot be null.") @Valid Order order
+    ) {
         order.setDateCreated(OffsetDateTime.now());
         return orderRepository.save(order);
     }
 
     @Override
-    public void update(@NotNull(message = "The order cannot be null.") @Valid Order order) {
+    public void update(
+            @NotNull(message = "The order cannot be null.") @Valid Order order
+    ) {
         orderRepository.save(order);
     }
 
     @Override
-    public List<Order> getUserOrders(Long id) {
-        return orderRepository.findAllByUser(id);
+    public List<Order> getUserOrders(User user) {
+        return orderRepository.findAllByUser(user.getId());
+    }
+
+    @Override
+    public Order getProductById(Long id) {
+        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("order", "id", id.toString()));
     }
 }

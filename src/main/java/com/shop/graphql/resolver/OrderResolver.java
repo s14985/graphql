@@ -1,12 +1,11 @@
 package com.shop.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import com.shop.graphql.exception.UserNotFoundException;
 import com.shop.graphql.model.Order;
 import com.shop.graphql.model.OrderProduct;
 import com.shop.graphql.model.User;
-import com.shop.graphql.repository.OrderProductRepository;
-import com.shop.graphql.repository.UserRepository;
+import com.shop.graphql.service.OrderProductServiceImpl;
+import com.shop.graphql.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,19 +15,15 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class OrderResolver implements GraphQLResolver<Order> {
-    private OrderProductRepository orderProductRepository;
-    private UserRepository userRepository;
+    private OrderProductServiceImpl orderProductService;
+    private UserServiceImpl userService;
 
     public List<OrderProduct> getOrderProducts(Order order) {
-        return orderProductRepository.findAllByOrder_Id(order.getId());
+        return orderProductService.getAllByOrder(order);
     }
 
     public User getUser(Order order) {
-        return userRepository
-                .findOneByOrderInOrders(order.getId())
-                .orElseThrow(
-                        () -> new UserNotFoundException("orderId", order.getId().toString())
-                );
+        return userService.getUserByOrderInOrders(order);
     }
 
     public OffsetDateTime getDateCreated(Order order) {

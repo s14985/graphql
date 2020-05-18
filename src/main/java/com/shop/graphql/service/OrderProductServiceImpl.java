@@ -1,5 +1,6 @@
 package com.shop.graphql.service;
 
+import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Order;
 import com.shop.graphql.model.OrderProduct;
 import com.shop.graphql.model.Product;
@@ -19,7 +20,11 @@ public class OrderProductServiceImpl implements OrderProductService {
     private OrderProductRepository orderProductRepository;
 
     @Override
-    public OrderProduct create(@NotNull(message = "The products for order cannot be null.") @Valid OrderProduct orderProduct) {
+    public OrderProduct create(
+            @NotNull(
+                    message = "The products for order cannot be null."
+            ) @Valid OrderProduct orderProduct
+    ) {
         return orderProductRepository.save(orderProduct);
     }
 
@@ -38,5 +43,8 @@ public class OrderProductServiceImpl implements OrderProductService {
         return orderProductRepository.findAllByProduct_Id(product.getId());
     }
 
-
+    @Override
+    public OrderProduct getById(Long id) {
+        return orderProductRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("orderProduct", "id", id.toString()));
+    }
 }
