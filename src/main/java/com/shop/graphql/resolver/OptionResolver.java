@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class OptionResolver implements GraphQLResolver<Option> {
-    private OptionGroupServiceImpl optionGroupService;
+	private OptionGroupServiceImpl optionGroupService;
 
-    public OptionGroup getOptionGroup(Option option) {
-        return optionGroupService.getOptionGroupByOption(option);
-    }
+	public OptionGroup getOptionGroup(Option option) {
+		return optionGroupService.getOptionGroupByOption(option);
+	}
 }

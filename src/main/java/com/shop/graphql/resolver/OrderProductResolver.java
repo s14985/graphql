@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class OrderProductResolver implements GraphQLResolver<OrderProduct> {
-    private OrderServiceImpl orderService;
-    private ProductServiceImpl productService;
+	private OrderServiceImpl orderService;
+	private ProductServiceImpl productService;
 
-    public Order getOrder(OrderProduct orderProduct) {
-        return orderService.getProductById(orderProduct.getOrder().getId());
-    }
+	public Order getOrder(OrderProduct orderProduct) {
+		return orderService.getProductById(orderProduct.getOrder().getId());
+	}
 
-    public Product getProduct(OrderProduct orderProduct) {
-        return productService.getProductById(orderProduct.getProduct().getId());
-    }
+	public Product getProduct(OrderProduct orderProduct) {
+		return productService.getProductById(orderProduct.getProduct().getId());
+	}
 }

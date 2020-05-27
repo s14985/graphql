@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class ProductResolver implements GraphQLResolver<Product> {
-    private OrderProductServiceImpl orderProductService;
+	private OrderProductServiceImpl orderProductService;
 
-    public Iterable<OrderProduct> getOrderProducts(Product product) {
-        return orderProductService.getAllByProduct(product);
-    }
+	public Iterable<OrderProduct> getOrderProducts(Product product) {
+		return orderProductService.getAllByProduct(product);
+	}
 }

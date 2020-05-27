@@ -4,6 +4,11 @@ type OrderProduct {
 	product: Product
 }
 
+input OrderProductInput {
+	product: ProductInput
+	quantity: Int
+}
+
 extend type Query {
 	findAllOrdersProducts: [OrderProduct]!
 	findAllProductsFromOrdersByProductId(id: ID!): [OrderProduct]!

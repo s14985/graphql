@@ -18,11 +18,13 @@ public interface OrderService {
             @NotNull(message = "The order cannot be null.") @Valid Order order
     );
 
-    void update(
+    Order update(
             @NotNull(message = "The order cannot be null.") @Valid Order order
     );
 
     List<Order> getUserOrders(User user);
 
     Order getProductById(@Min(value = 1L, message = "Invalid order ID.") Long id);
+
+    void delete(@Valid Order order);
 }

@@ -13,6 +13,10 @@ enum Status {
 	FINISHED
 }
 
+type Mutation {
+	newOrder(orderProducts: [OrderProductInput]!): Order
+}
+
 extend type Query {
 	findAllOrders: [Order]!
 }

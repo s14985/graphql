@@ -45,6 +45,10 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     @Override
     public OrderProduct getById(Long id) {
-        return orderProductRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("orderProduct", "id", id.toString()));
+        return orderProductRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("orderProduct", "id", id.toString())
+                );
     }
 }

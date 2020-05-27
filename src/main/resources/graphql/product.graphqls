@@ -4,6 +4,11 @@ type Product {
 	orderProducts: [OrderProduct]
 }
 
+input ProductInput {
+	id: ID!
+	name: String
+}
+
 type Query {
 	findAllProducts: [Product]!
 }

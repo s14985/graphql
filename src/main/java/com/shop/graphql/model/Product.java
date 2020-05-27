@@ -1,32 +1,33 @@
 package com.shop.graphql.model;
 
-import java.util.Set;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Data
 @Entity
-@EqualsAndHashCode(exclude = { "orderProducts" })
+@EqualsAndHashCode(exclude = {"orderProducts"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	private Set<OrderProduct> orderProducts;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private List<OrderProduct> orderProducts;
 
-	public Product(Long id) {
-		this.id = id;
-	}
+    public Product(Long id) {
+        this.id = id;
+    }
 
-	public Product(String name) {
-		this.name = name;
-	}
+    public Product(String name) {
+        this.name = name;
+    }
 }

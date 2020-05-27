@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootApplication
 public class GraphqlApplication {
@@ -53,20 +51,9 @@ public class GraphqlApplication {
             order5.setUser(user2);
             order6.setUser(user3);
 
-            Set<Order> userOrders1 = new HashSet<>();
-            userOrders1.add(order1);
-            userOrders1.add(order4);
-            user1.setOrders(userOrders1);
-
-            Set<Order> userOrders2 = new HashSet<>();
-            userOrders2.add(order2);
-            userOrders2.add(order5);
-            user2.setOrders(userOrders2);
-
-            Set<Order> userOrders3 = new HashSet<>();
-            userOrders3.add(order3);
-            userOrders3.add(order6);
-            user3.setOrders(userOrders3);
+            user1.setOrders(Arrays.asList(order1, order4));
+            user2.setOrders(Arrays.asList(order2, order5));
+            user3.setOrders(Arrays.asList(order3, order6));
 
             userRepository.saveAll(Arrays.asList(user1, user2, user3));
 
@@ -84,23 +71,23 @@ public class GraphqlApplication {
             product5 = productRepository.save(product5);
             product6 = productRepository.save(product6);
 
-            orderProductRepository.save(new OrderProduct(order1, product1));
-            orderProductRepository.save(new OrderProduct(order1, product2));
-            orderProductRepository.save(new OrderProduct(order1, product3));
+            orderProductRepository.save(new OrderProduct(order1, product1, 5));
+            orderProductRepository.save(new OrderProduct(order1, product2, 3));
+            orderProductRepository.save(new OrderProduct(order1, product3, 1));
 
-            orderProductRepository.save(new OrderProduct(order2, product1));
-            orderProductRepository.save(new OrderProduct(order2, product3));
+            orderProductRepository.save(new OrderProduct(order2, product1, 2));
+            orderProductRepository.save(new OrderProduct(order2, product3, 4));
 
-            orderProductRepository.save(new OrderProduct(order3, product1));
-            orderProductRepository.save(new OrderProduct(order3, product4));
-            orderProductRepository.save(new OrderProduct(order3, product3));
+            orderProductRepository.save(new OrderProduct(order3, product1, 1));
+            orderProductRepository.save(new OrderProduct(order3, product4, 4));
+            orderProductRepository.save(new OrderProduct(order3, product3, 3));
 
-            orderProductRepository.save(new OrderProduct(order4, product2));
+            orderProductRepository.save(new OrderProduct(order4, product2, 2));
 
-            orderProductRepository.save(new OrderProduct(order5, product2));
-            orderProductRepository.save(new OrderProduct(order5, product4));
+            orderProductRepository.save(new OrderProduct(order5, product2, 1));
+            orderProductRepository.save(new OrderProduct(order5, product4, 2));
 
-            orderProductRepository.save(new OrderProduct(order6, product2));
+            orderProductRepository.save(new OrderProduct(order6, product2, 3));
 
             Option option1 = new Option("Option 1");
             Option option2 = new Option("Option 2");
@@ -115,15 +102,8 @@ public class GraphqlApplication {
             option3.setOptionGroup(optionGroup1);
             option4.setOptionGroup(optionGroup2);
 
-            Set<Option> optionSet1 = new HashSet<>();
-            optionSet1.add(option1);
-            optionSet1.add(option3);
-            optionGroup1.setOptions(optionSet1);
-
-            Set<Option> optionSet2 = new HashSet<>();
-            optionSet2.add(option2);
-            optionSet2.add(option4);
-            optionGroup2.setOptions(optionSet2);
+            optionGroup1.setOptions(Arrays.asList(option1, option3));
+            optionGroup2.setOptions(Arrays.asList(option2, option4));
 
             optionGroupRepository.saveAll(Arrays.asList(optionGroup1, optionGroup2));
             optionRepository.saveAll(

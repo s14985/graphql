@@ -33,10 +33,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void update(
+    public Order update(
             @NotNull(message = "The order cannot be null.") @Valid Order order
     ) {
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     @Override
@@ -46,6 +46,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getProductById(Long id) {
-        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("order", "id", id.toString()));
+        return orderRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("order", "id", id.toString())
+                );
     }
+
+    @Override
+    public void delete(@Valid Order order) {
+        orderRepository.delete(order);
+    }
+
+
 }

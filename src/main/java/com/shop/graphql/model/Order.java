@@ -7,7 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,7 +32,7 @@ public class Order {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     @Valid
-    private Set<OrderProduct> orderProducts;
+    private List<OrderProduct> orderProducts;
 
     public Order(Status status) {
         this.status = status;

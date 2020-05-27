@@ -1,75 +1,52 @@
 package com.shop.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.shop.graphql.repository.UserRepository;
+import com.shop.graphql.dto.input.OrderProductInput;
+import com.shop.graphql.model.Order;
+import com.shop.graphql.model.OrderProduct;
+import com.shop.graphql.model.Status;
+import com.shop.graphql.service.OrderProductServiceImpl;
+import com.shop.graphql.service.OrderServiceImpl;
+import com.shop.graphql.service.ProductServiceImpl;
+import com.shop.graphql.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
 public class Mutation implements GraphQLMutationResolver {
-	private UserRepository userRepository;
-	//    private BookRepository bookRepository;
-	//    private AuthorRepository authorRepository;
-	//
-	//    public Mutation(
-	//            BookRepository bookRepository,
-	//            AuthorRepository authorRepository
-	//    ) {
-	//        this.bookRepository = bookRepository;
-	//        this.authorRepository = authorRepository;
-	//    }
-	//
-	//    public Author newAuthor(String firstName, String lastName) {
-	//        Author author = new Author();
-	//        author.setFirstName(firstName);
-	//        author.setLastName(lastName);
-	//
-	//        authorRepository.save(author);
-	//
-	//        return author;
-	//    }
-	//
-	//    public Book newBook(
-	//            String title,
-	//            String isbn,
-	//            Integer pageCount,
-	//            Long authorId
-	//    ) {
-	//        Book book = new Book();
-	//        book.setAuthor(new Author(authorId));
-	//        book.setTitle(title);
-	//        book.setIsbn(isbn);
-	//        book.setPageCount(pageCount != null ? pageCount : 0);
-	//
-	//        bookRepository.save(book);
-	//
-	//        return book;
-	//    }
-	//
-	//    public boolean deleteBook(Long id) {
-	//        bookRepository.delete(
-	//                bookRepository
-	//                        .findById(id)
-	//                        .orElseThrow(() -> new BookNotFoundException(id))
-	//        );
-	//        return true;
-	//    }
-	//
-	//    public Book updateBookPageCount(Integer pageCount, Long id) {
-	//        Book book = bookRepository
-	//                .findById(id)
-	//                .orElseThrow(() -> new BookNotFoundException(id));
-	//        book.setPageCount(pageCount);
-	//
-	//        bookRepository.save(book);
-	//
-	//        return book;
-	//    }
+    private UserServiceImpl userService;
+    private OrderServiceImpl orderService;
+    private OrderProductServiceImpl orderProductService;
+    private ProductServiceImpl productService;
 
-	//    public Order newOrder(Long userId) {
-	//        Order order = new Order(Status.CREATED);
-	//        order.setUser(userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("id", userId.toString())));
-	//
-	//    }
+    public Order newOrder(List<OrderProductInput> orderProductInputs) {
+        Order order = new Order(Status.CREATED);
+        order.setUser(userService.getCurrentUser());
+        order = orderService.create(order);
+
+        List<OrderProduct> orderProducts = new ArrayList<>();
+        for (OrderProductInput orderProductInput : orderProductInputs) {
+            orderProducts.add(
+                    orderProductService.create(
+                            new OrderProduct(
+                                    order,
+                                    productService.getProductById(orderProductInput.getProduct().getId()),
+                                    orderProductInput.getQuantity()
+                            )
+                    )
+            );
+        }
+
+        order.setOrderProducts(orderProducts);
+        return orderService.update(order);
+    }
+
+    public boolean deleteOrder(Long id) {
+        orderService.delete(orderService.getProductById(id));
+        return true;
+    }
 }

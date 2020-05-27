@@ -12,18 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AllArgsConstructor
 public class OptionGroupServiceImpl implements OptionGroupService {
-    private OptionGroupRepository optionGroupRepository;
+	private OptionGroupRepository optionGroupRepository;
 
-    public OptionGroup getOptionGroupByOption(Option option) {
-        return optionGroupRepository
-                .findById(option.getOptionGroup().getId())
-                .orElseThrow(
-                        () ->
-                                new ResourceNotFoundException(
-                                        "optionGroup",
-                                        "id",
-                                        option.getOptionGroup().getId().toString()
-                                )
-                );
-    }
+	public OptionGroup getOptionGroupByOption(Option option) {
+		return optionGroupRepository
+			.findById(option.getOptionGroup().getId())
+			.orElseThrow(
+				() ->
+					new ResourceNotFoundException(
+						"optionGroup",
+						"id",
+						option.getOptionGroup().getId().toString()
+					)
+			);
+	}
 }

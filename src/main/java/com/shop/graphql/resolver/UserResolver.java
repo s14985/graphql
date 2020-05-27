@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UserResolver implements GraphQLResolver<User> {
-    private OrderServiceImpl orderService;
+	private OrderServiceImpl orderService;
 
-    public Iterable<Order> getOrders(User user) {
-        return orderService.getUserOrders(user);
-    }
+	public Iterable<Order> getOrders(User user) {
+		return orderService.getUserOrders(user);
+	}
 
-    public Role getRole(User user) {
-        return user.getUserType();
-    }
+	public Role getRole(User user) {
+		return user.getUserType();
+	}
 }
