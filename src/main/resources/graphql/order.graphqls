@@ -9,7 +9,7 @@ type Order {
 }
 
 input OrderInput {
-	id: ID!
+	id: ID
 	status: Status
 }
 

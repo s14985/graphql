@@ -6,6 +6,7 @@ type OrderProduct {
 
 input OrderProductInput {
 	id: ID
+	orderId: ID
 	productId: ID
 	quantity: Int
 }
