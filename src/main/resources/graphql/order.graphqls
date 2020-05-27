@@ -8,6 +8,11 @@ type Order {
 	user: User
 }
 
+input OrderInput {
+	id: ID!
+	status: Status
+}
+
 enum Status {
 	CREATED
 	FINISHED
@@ -15,6 +20,8 @@ enum Status {
 
 type Mutation {
 	newOrder(orderProducts: [OrderProductInput]!): Order
+	editOrder(id: ID!, orderProducts: [OrderProductInput]!): Order
+	deleteOrder(id: ID!): Boolean
 }
 
 extend type Query {

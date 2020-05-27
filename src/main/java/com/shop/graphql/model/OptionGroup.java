@@ -1,12 +1,11 @@
 package com.shop.graphql.model;
 
+import java.util.List;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
@@ -15,16 +14,16 @@ import java.util.List;
 @EqualsAndHashCode(exclude = "options")
 @Table(name = "option_group")
 public class OptionGroup {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String name;
+	private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "optionGroup")
-    private List<Option> options;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "optionGroup")
+	private List<Option> options;
 
-    public OptionGroup(String name) {
-        this.name = name;
-    }
+	public OptionGroup(String name) {
+		this.name = name;
+	}
 }

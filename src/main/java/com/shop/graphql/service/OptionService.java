@@ -5,4 +5,6 @@ import com.shop.graphql.model.OptionGroup;
 
 public interface OptionService {
 	Iterable<Option> getOptionsByOptionGroup(OptionGroup optionGroup);
+
+	void delete(Long id);
 }

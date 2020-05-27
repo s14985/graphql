@@ -16,7 +16,7 @@ public class OrderProductResolver implements GraphQLResolver<OrderProduct> {
 	private ProductServiceImpl productService;
 
 	public Order getOrder(OrderProduct orderProduct) {
-		return orderService.getProductById(orderProduct.getOrder().getId());
+		return orderService.getOrderById(orderProduct.getOrder().getId());
 	}
 
 	public Product getProduct(OrderProduct orderProduct) {
