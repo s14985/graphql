@@ -4,9 +4,9 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.shop.graphql.model.Order;
 import com.shop.graphql.model.OrderProduct;
 import com.shop.graphql.model.Product;
-import com.shop.graphql.repository.OrderProductRepository;
-import com.shop.graphql.repository.OrderRepository;
-import com.shop.graphql.repository.ProductRepository;
+import com.shop.graphql.service.OrderProductServiceImpl;
+import com.shop.graphql.service.OrderServiceImpl;
+import com.shop.graphql.service.ProductServiceImpl;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,29 +14,29 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class Query implements GraphQLQueryResolver {
-	private ProductRepository productRepository;
-	private OrderRepository orderRepository;
-	private OrderProductRepository orderProductRepository;
+	private ProductServiceImpl productService;
+	private OrderServiceImpl orderService;
+	private OrderProductServiceImpl orderProductService;
 
 	public Iterable<Product> findAllProducts() {
-		return productRepository.findAll();
+		return productService.getAllProducts();
 	}
 
 	public Iterable<Order> findAllOrders() {
-		return orderRepository.findAll();
+		return orderService.getAllOrders();
 	}
 
 	public Iterable<OrderProduct> findAllOrdersProducts() {
-		return orderProductRepository.findAll();
+		return orderProductService.getAllOrderProducts();
 	}
 
 	public List<OrderProduct> findAllProductsFromOrdersByProductId(
 		Long productId
 	) {
-		return orderProductRepository.findAllByProduct_Id(productId);
+		return orderProductService.getAllByProductId(productId);
 	}
 
 	public Iterable<Product> findProductsFromOrdersByProductId(Long productId) {
-		return productRepository.findProductsFromOrdersByProductId(productId);
+		return productService.findProductsFromOrdersByProductId(productId);
 	}
 }

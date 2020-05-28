@@ -17,4 +17,6 @@ public interface ProductService {
 	Product save(Product product);
 
 	void delete(Long id);
+
+	Iterable<Product> findProductsFromOrdersByProductId(Long id);
 }

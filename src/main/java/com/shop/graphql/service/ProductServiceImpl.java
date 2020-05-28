@@ -3,6 +3,9 @@ package com.shop.graphql.service;
 import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Product;
 import com.shop.graphql.repository.ProductRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -39,5 +42,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void delete(Long id) {
 		productRepository.deleteById(id);
+	}
+
+	@Override
+	public Iterable<Product> findProductsFromOrdersByProductId(Long id) {
+		return productRepository.findProductsFromOrdersByProductId(id);
 	}
 }

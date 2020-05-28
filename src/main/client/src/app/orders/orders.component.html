@@ -1,0 +1,8 @@
+<p>orders works!</p>
+<div>
+  <label>List of orders: </label>
+  <div *ngFor="let order of orders">
+    {{ order.id }}
+    {{ order.user.id }}
+  </div>
+</div>

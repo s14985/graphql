@@ -13,6 +13,6 @@ public class ProductResolver implements GraphQLResolver<Product> {
 	private OrderProductServiceImpl orderProductService;
 
 	public Iterable<OrderProduct> getOrderProducts(Product product) {
-		return orderProductService.getAllByProduct(product);
+		return orderProductService.getAllByProductId(product.getId());
 	}
 }

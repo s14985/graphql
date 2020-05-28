@@ -1,9 +1,7 @@
 package com.shop.graphql.service;
 
 import com.shop.graphql.exception.ResourceNotFoundException;
-import com.shop.graphql.model.Order;
 import com.shop.graphql.model.OrderProduct;
-import com.shop.graphql.model.Product;
 import com.shop.graphql.repository.OrderProductRepository;
 import java.util.List;
 import javax.validation.Valid;
@@ -27,9 +25,8 @@ public class OrderProductServiceImpl implements OrderProductService {
 		return orderProductRepository.save(orderProduct);
 	}
 
-	@Override
-	public List<OrderProduct> getAllByOrder(Order order) {
-		return orderProductRepository.findAllByOrder_Id(order.getId());
+	public List<OrderProduct> getAllByOrderId(Long id) {
+		return orderProductRepository.findAllByOrder_Id(id);
 	}
 
 	@Override
@@ -38,8 +35,8 @@ public class OrderProductServiceImpl implements OrderProductService {
 	}
 
 	@Override
-	public List<OrderProduct> getAllByProduct(Product product) {
-		return orderProductRepository.findAllByProduct_Id(product.getId());
+	public List<OrderProduct> getAllByProductId(Long id) {
+		return orderProductRepository.findAllByProduct_Id(id);
 	}
 
 	@Override
@@ -54,5 +51,10 @@ public class OrderProductServiceImpl implements OrderProductService {
 	@Override
 	public void delete(Long id) {
 		orderProductRepository.deleteById(id);
+	}
+
+	@Override
+	public Iterable<OrderProduct> getAllOrderProducts() {
+		return orderProductRepository.findAll();
 	}
 }

@@ -1,8 +1,6 @@
 package com.shop.graphql.service;
 
-import com.shop.graphql.model.Order;
 import com.shop.graphql.model.OrderProduct;
-import com.shop.graphql.model.Product;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,13 +14,15 @@ public interface OrderProductService {
 		) @Valid OrderProduct orderProduct
 	);
 
-	List<OrderProduct> getAllByProduct(Product product);
+	List<OrderProduct> getAllByProductId(Long id);
 
-	List<OrderProduct> getAllByOrder(Order order);
+	List<OrderProduct> getAllByOrderId(Long id);
 
 	List<OrderProduct> getByProductIdWithAddData(Long id);
 
 	OrderProduct getById(Long id);
 
 	void delete(Long id);
+
+	Iterable<OrderProduct> getAllOrderProducts();
 }
