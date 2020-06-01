@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="home">
+      <img class="logo" src="assets/images/logo.svg" alt="logo">
+    </a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapsed()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarResponsive" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+      <ul class="nav navbar-nav">
+        <app-nav-item [colorSwitcher]="home" [routeName]="'home'" [active]="'active'" [linkName]="'HOME'"></app-nav-item>
+        <app-nav-item [colorSwitcher]="items" [routeName]="'items'" [linkName]="'ITEMS'"></app-nav-item>
+      </ul>
+    </div>
+  </div>
+  <div class="line"></div>
+</nav>

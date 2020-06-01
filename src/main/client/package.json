@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4401",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -26,9 +26,11 @@
     "apollo-cache-inmemory": "^1.6.0",
     "apollo-client": "^2.6.0",
     "apollo-link": "^1.2.11",
+    "bootstrap": "^4.5.0",
     "esnext": "^3.3.1",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.0",
+    "jquery": "^3.5.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
