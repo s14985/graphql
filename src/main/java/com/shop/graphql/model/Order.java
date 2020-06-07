@@ -10,8 +10,8 @@ import lombok.*;
 
 @Data
 @Entity
-@ToString(exclude = { "orderProducts", "user" })
-@EqualsAndHashCode(exclude = { "orderProducts", "user" })
+@ToString(exclude = { "productOrders", "user" })
+@EqualsAndHashCode(exclude = { "productOrders", "user" })
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
@@ -31,7 +31,7 @@ public class Order {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	@Valid
-	private List<OrderProduct> orderProducts;
+	private List<ProductOrder> productOrders;
 
 	public Order(Status status) {
 		this.status = status;
@@ -46,6 +46,6 @@ public class Order {
 
 	@Transient
 	public int getNumberOfProducts() {
-		return this.orderProducts.size();
+		return this.productOrders.size();
 	}
 }

@@ -1,14 +1,31 @@
 type Product {
 	id: ID!
 	name: String!
-	orderProducts: [OrderProduct]
+	price: Float!
+	picture: String
+	details: String
+	productOrders: [ProductOrder]
 }
 
 input ProductInput {
 	id: ID
-	name: String
+	name: String!
+	price: Float!
+	picture: String
+	details: String
+}
+
+type Mutation {
+	newProduct(
+		name: String!
+		price: Float!
+		picture: String!
+		details: String!
+	): Product
+	editProduct(id: ID!, name: String!): Product
 }
 
 type Query {
-	findAllProducts: [Product]!
+	findAllProducts: [Product]
+	findProductById(id: ID!): Product
 }

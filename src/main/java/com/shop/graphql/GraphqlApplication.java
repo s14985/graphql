@@ -2,6 +2,7 @@ package com.shop.graphql;
 
 import com.shop.graphql.model.*;
 import com.shop.graphql.repository.*;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,7 @@ public class GraphqlApplication {
 	public CommandLineRunner runner(
 		ProductRepository productRepository,
 		OrderRepository orderRepository,
-		OrderProductRepository orderProductRepository,
+		ProductOrderRepository productOrderRepository,
 		UserRepository userRepository,
 		OptionRepository optionRepository,
 		OptionGroupRepository optionGroupRepository
@@ -36,12 +37,42 @@ public class GraphqlApplication {
 			Order order5 = new Order(Status.CREATED);
 			Order order6 = new Order(Status.CREATED);
 
-			Product product1 = new Product("Koc 1");
-			Product product2 = new Product("Koc 2");
-			Product product3 = new Product("Koc 3");
-			Product product4 = new Product("Koc 4");
-			Product product5 = new Product("Koc 5");
-			Product product6 = new Product("Koc 6");
+			Product product1 = new Product(
+				"Koc 1",
+				new BigDecimal("11.00"),
+				"assets/images/blanket-1.svg",
+				"details"
+			);
+			Product product2 = new Product(
+				"Koc 2",
+				new BigDecimal("12.00"),
+				"assets/images/blanket-2.svg",
+				"details"
+			);
+			Product product3 = new Product(
+				"Koc 3",
+				new BigDecimal("13.00"),
+				"assets/images/blanket-3.svg",
+				"details"
+			);
+			Product product4 = new Product(
+				"Koc 4",
+				new BigDecimal("14.00"),
+				"assets/images/blanket-4.jpg",
+				"details"
+			);
+			Product product5 = new Product(
+				"Koc 5",
+				new BigDecimal("15.00"),
+				"assets/images/blanket-5.jpeg",
+				"details"
+			);
+			Product product6 = new Product(
+				"Koc 6",
+				new BigDecimal("16.00"),
+				"assets/images/blanket-6.jpg",
+				"details"
+			);
 
 			order1.setUser(user1);
 			order2.setUser(user2);
@@ -70,23 +101,23 @@ public class GraphqlApplication {
 			product5 = productRepository.save(product5);
 			product6 = productRepository.save(product6);
 
-			orderProductRepository.save(new OrderProduct(order1, product1, 5));
-			orderProductRepository.save(new OrderProduct(order1, product2, 3));
-			orderProductRepository.save(new OrderProduct(order1, product3, 1));
+			productOrderRepository.save(new ProductOrder(order1, product1, 5));
+			productOrderRepository.save(new ProductOrder(order1, product2, 3));
+			productOrderRepository.save(new ProductOrder(order1, product3, 1));
 
-			orderProductRepository.save(new OrderProduct(order2, product1, 2));
-			orderProductRepository.save(new OrderProduct(order2, product3, 4));
+			productOrderRepository.save(new ProductOrder(order2, product1, 2));
+			productOrderRepository.save(new ProductOrder(order2, product3, 4));
 
-			orderProductRepository.save(new OrderProduct(order3, product1, 1));
-			orderProductRepository.save(new OrderProduct(order3, product4, 4));
-			orderProductRepository.save(new OrderProduct(order3, product3, 3));
+			productOrderRepository.save(new ProductOrder(order3, product1, 1));
+			productOrderRepository.save(new ProductOrder(order3, product4, 4));
+			productOrderRepository.save(new ProductOrder(order3, product3, 3));
 
-			orderProductRepository.save(new OrderProduct(order4, product2, 2));
+			productOrderRepository.save(new ProductOrder(order4, product2, 2));
 
-			orderProductRepository.save(new OrderProduct(order5, product2, 1));
-			orderProductRepository.save(new OrderProduct(order5, product4, 2));
+			productOrderRepository.save(new ProductOrder(order5, product2, 1));
+			productOrderRepository.save(new ProductOrder(order5, product4, 2));
 
-			orderProductRepository.save(new OrderProduct(order6, product2, 3));
+			productOrderRepository.save(new ProductOrder(order6, product2, 3));
 
 			Option option1 = new Option("Option 1");
 			Option option2 = new Option("Option 2");

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude = { "order", "product" })
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderProduct {
+public class ProductOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -27,11 +27,11 @@ public class OrderProduct {
 	@Column(nullable = false)
 	private Integer quantity;
 
-	public OrderProduct(Long id) {
+	public ProductOrder(Long id) {
 		this.id = id;
 	}
 
-	public OrderProduct(Order order, Product product, Integer quantity) {
+	public ProductOrder(Order order, Product product, Integer quantity) {
 		this.order = order;
 		this.product = product;
 		this.quantity = quantity;

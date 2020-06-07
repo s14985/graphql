@@ -1,48 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import gql from 'graphql-tag';
-import { Apollo } from 'apollo-angular';
-
-const findAllOrders = gql`
-	query {
-		findAllOrders {
-			id
-			status
-			dateCreated
-			orderProducts {
-				id
-			}
-			user {
-				id
-			}
-		}
-	}
-`;
+import { Component, OnInit } from '@angular/core';
+import { Order } from '../../interfaces/order';
+import { EcommerceService } from '../../services/ecommerce.service';
+import { Product } from '../../interfaces/product';
+import { ProductOrder } from '../../models/product-order.model';
 
 @Component({
 	selector: 'app-orders',
 	templateUrl: './orders.component.html',
 	styleUrls: ['./orders.component.scss'],
 })
-export class OrdersComponent implements OnInit, OnDestroy {
-	private querySubscription: Subscription;
-	loading: boolean;
-	orders: any;
+export class OrdersComponent implements OnInit {
+	orders: Order[];
 
-	constructor(private apollo: Apollo) {}
+	constructor(private ecommerceService: EcommerceService) {}
 
 	ngOnInit(): void {
-		this.querySubscription = this.apollo
-			.watchQuery<any>({
-				query: findAllOrders,
-			})
-			.valueChanges.subscribe(({ data, loading }) => {
-				this.loading = loading;
-				this.orders = data.findAllOrders;
-			});
-	}
-
-	ngOnDestroy() {
-		this.querySubscription.unsubscribe();
+		this.ecommerceService
+			.findAllOrders()
+			.subscribe((result) => (this.orders = result.findAllOrders));
 	}
 }

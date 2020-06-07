@@ -1,0 +1,8 @@
+<div class="card">
+  <img class="card-img-top" src="{{item.picture}}" alt="Card image">
+  <div class="card-body">
+    <h5 class="card-title">{{item.name}}</h5>
+    <p class="card-text">${{item.price}}</p>
+    <a [routerLink]="['/items/', item.id]" class="btn">See Item</a>
+  </div>
+</div>

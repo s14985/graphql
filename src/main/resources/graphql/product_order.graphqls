@@ -1,10 +1,10 @@
-type OrderProduct {
+type ProductOrder {
 	id: ID!
 	order: Order
 	product: Product
 }
 
-input OrderProductInput {
+input ProductOrderInput {
 	id: ID
 	orderId: ID
 	productId: ID
@@ -12,7 +12,7 @@ input OrderProductInput {
 }
 
 extend type Query {
-	findAllOrdersProducts: [OrderProduct]!
-	findAllProductsFromOrdersByProductId(id: ID!): [OrderProduct]!
+	findAllProductOrders: [ProductOrder]!
+	findAllProductsFromOrdersByProductId(id: ID!): [ProductOrder]!
 	findProductsFromOrdersByProductId(id: ID!): [Product]!
 }

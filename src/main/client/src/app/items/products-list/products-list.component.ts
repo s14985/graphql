@@ -1,15 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Product } from '../../models/product.model';
+import { ProductOrder } from '../../models/product-order.model';
+import { EcommerceService } from '../../services/ecommerce.service';
 
 @Component({
-  selector: 'app-products-list',
-  templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.scss']
+	selector: 'app-products-list',
+	templateUrl: './products-list.component.html',
+	styleUrls: ['./products-list.component.scss'],
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
+	private sub: Subscription;
+	product: Product;
+	products: Product[];
+	name: string;
+	checker: boolean;
+	errorMsg: boolean;
 
-  constructor() { }
+	constructor(
+		private router: Router,
+		private ecommerceService: EcommerceService
+	) {}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		this.sub = this.ecommerceService
+			.findAllProducts()
+			.subscribe((result) => (this.products = result.findAllProducts));
+	}
 
+	ngOnDestroy(): void {
+		this.sub.unsubscribe();
+	}
 }

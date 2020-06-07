@@ -1,5 +1,6 @@
 package com.shop.graphql.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = { "orderProducts" })
+@EqualsAndHashCode(exclude = { "productOrders" })
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
@@ -19,14 +20,33 @@ public class Product {
 
 	private String name;
 
+	private BigDecimal price;
+
+	private String picture;
+
+	private String details;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	private List<OrderProduct> orderProducts;
+	private List<ProductOrder> productOrders;
 
 	public Product(Long id) {
 		this.id = id;
 	}
 
-	public Product(String name) {
+	public Product(String name, BigDecimal price) {
 		this.name = name;
+		this.price = price;
+	}
+
+	public Product(
+		String name,
+		BigDecimal price,
+		String picture,
+		String details
+	) {
+		this.name = name;
+		this.price = price;
+		this.picture = picture;
+		this.details = details;
 	}
 }

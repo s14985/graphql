@@ -9,14 +9,18 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends CrudRepository<Product, Long> {
 	@Query(
 		"SELECT p FROM Product p " +
-		"JOIN p.orderProducts op " +
+		"JOIN p.productOrders op " +
 		"JOIN op.order o " +
 		"WHERE o.id IN " +
-		"    (SELECT o1.id FROM Order o1 " +
-		"    JOIN o1.orderProducts op1 " +
-		"    JOIN op1.product p1 " +
-		"    WHERE p1.id = :id " +
+		"    (SELECT o.id FROM Order o " +
+		"    JOIN o.productOrders op " +
+		"    JOIN op.product p " +
+		"    WHERE p.id = :id " +
 		"    ) " +
+		"AND p NOT IN " +
+		"	(SELECT p FROM Product p " +
+		"	WHERE p.id = :id" +
+		"	) " +
 		"GROUP BY p.id"
 	)
 	Iterable<Product> findProductsFromOrdersByProductId(Long id);

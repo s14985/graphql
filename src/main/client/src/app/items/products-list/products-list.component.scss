@@ -1,0 +1,52 @@
+.card {
+  font-family: 'Poppins', sans-serif;
+  border: none !important;
+  .card-body {
+    padding-left: 10px;
+  }
+}
+
+.card-img-top {
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.btn {
+  color: white;
+  background-color: #FF7A00;
+  border: 1px solid #FF7A00;
+  text-shadow: 1px 1px #b35500;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+h5 {
+  color: #FF7A00;
+}
+
+.row {
+  position: relative;
+}
+
+.bottomCard {
+  position: absolute;
+  bottom: 0;
+  left: 25px;
+}
+
+.col-6 {
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .card-img-top {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.card-deck {
+  width: 100%;
+}

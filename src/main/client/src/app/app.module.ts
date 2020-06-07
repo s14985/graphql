@@ -16,17 +16,48 @@ import { ProductDetailsComponent } from './items/product-details/product-details
 import { ItemsComponent } from './items/items.component';
 import { ProductsListComponent } from './items/products-list/products-list.component';
 import { ShoppingCartComponent } from './items/shopping-cart/shopping-cart.component';
+import { ItemsDialogComponent } from './items/items-dialog/items-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { EcommerceService } from './services/ecommerce.service';
+import { SuggestedProductComponent } from './items/product-details/suggested-product/suggested-product.component';
 
 @NgModule({
-	declarations: [AppComponent, OrdersComponent, HomeComponent, NavbarComponent, FooterComponent, ErrorComponent, NavItemComponent, ProductDetailsComponent, ItemsComponent, ProductsListComponent, ShoppingCartComponent],
+	declarations: [
+		AppComponent,
+		OrdersComponent,
+		HomeComponent,
+		NavbarComponent,
+		FooterComponent,
+		ErrorComponent,
+		NavItemComponent,
+		ProductDetailsComponent,
+		ItemsComponent,
+		ProductsListComponent,
+		ShoppingCartComponent,
+		ItemsDialogComponent,
+		SuggestedProductComponent,
+	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		GraphQLModule,
 		HttpClientModule,
 		BrowserAnimationsModule,
+		MatDialogModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		MatCheckboxModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		FormsModule,
 	],
-	providers: [],
+	providers: [EcommerceService],
 	bootstrap: [AppComponent],
+	entryComponents: [ItemsDialogComponent],
 })
 export class AppModule {}

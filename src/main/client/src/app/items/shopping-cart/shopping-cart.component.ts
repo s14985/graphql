@@ -1,15 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	OnDestroy,
+	OnInit,
+	Output,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { EcommerceService } from '../../services/ecommerce.service';
 
 @Component({
-  selector: 'app-shopping-cart',
-  templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.scss']
+	selector: 'app-shopping-cart',
+	templateUrl: './shopping-cart.component.html',
+	styleUrls: ['./shopping-cart.component.scss'],
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent implements OnInit, OnDestroy {
+	private sub: Subscription;
+	orderFinished: boolean;
+	total: number;
 
-  constructor() { }
+	@Output() onOrderFinished: EventEmitter<boolean>;
 
-  ngOnInit(): void {
-  }
+	constructor(private ecommerceService: EcommerceService) {
+		this.total = 0;
+		this.orderFinished = false;
+		// this.onOrderFinished = new EventEmitter()<boolean>();
+	}
 
+	ngOnInit(): void {}
+
+	ngOnDestroy() {
+		// this.sub.unsubscribe();
+	}
 }
