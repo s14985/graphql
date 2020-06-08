@@ -11,26 +11,24 @@ import { Location } from '@angular/common';
 	styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-	private productSub: Subscription;
-	private suggestedSub: Subscription;
 	item: Product;
 	suggestedItems: Product[];
-	deleteErrorMsg: boolean;
+	deleteError: boolean;
 
 	constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private ecommerceService: EcommerceService,
-		private location: Location
+		private ecommerceService: EcommerceService
 	) {}
 
 	ngOnInit(): void {
-		this.productSub = this.activatedRoute.params.subscribe((params) => {
+		this.activatedRoute.params.subscribe((params) => {
 			this.ecommerceService
 				.findProductById(+params['id'])
 				.subscribe((result) => (this.item = result.findProductById));
 		});
-		this.suggestedSub = this.activatedRoute.params.subscribe((params) => {
+
+		this.activatedRoute.params.subscribe((params) => {
 			this.ecommerceService
 				.findProductsFromOrdersByProductId(+params['id'])
 				.subscribe(
@@ -43,11 +41,22 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.productSub.unsubscribe();
-		this.suggestedSub.unsubscribe();
 	}
 
-	back() {
-		this.location.back();
-	}
+  removeProduct() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.ecommerceService
+        .deleteProduct(+params['id'])
+        .subscribe(
+          (result) => {
+            this.deleteError = !result.deleteProduct;
+            this.router.navigateByUrl('/items');
+          },
+          (error) => {
+            this.deleteError = true;
+          }
+        );
+    });
+  }
+
 }

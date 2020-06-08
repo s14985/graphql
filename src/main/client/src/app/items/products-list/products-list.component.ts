@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from '../../models/product.model';
@@ -18,18 +18,29 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 	checker: boolean;
 	errorMsg: boolean;
 
+
 	constructor(
 		private router: Router,
 		private ecommerceService: EcommerceService
 	) {}
 
 	ngOnInit(): void {
-		this.sub = this.ecommerceService
-			.findAllProducts()
-			.subscribe((result) => (this.products = result.findAllProducts));
+    this.loadProducts();
+    this.sub = this.ecommerceService.ProductChanged$.subscribe(() => {
+      this.loadProducts();
+      }
+    )
 	}
 
 	ngOnDestroy(): void {
 		this.sub.unsubscribe();
 	}
+
+	loadProducts() {
+    this.ecommerceService
+      .findAllProducts()
+      .subscribe((result) => {
+        this.products = result.findAllProducts
+      });
+  }
 }

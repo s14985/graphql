@@ -30,10 +30,12 @@
     <div class="row">
       <div class="removeBtn col-4 offset-4">
 <!--        TODO deleting   -->
-        <button class="btn btn-primary">Remove</button>
+        <button class="btn btn-primary" (click)="removeProduct()">Remove</button>
       </div>
       <div class="backBtn col-4">
-        <button class="btn btn-primary" (click)="back()">< Back</button>
+        <a routerLink="/items">
+          <button class="btn btn-primary">Back</button>
+        </a>
       </div>
     </div>
   </div>
@@ -50,7 +52,7 @@
   </div>
 </div>
 
-<div class="mx-auto my-auto text-center alert alert-danger" role="alert" *ngIf="deleteErrorMsg">
+<div class="mx-auto my-auto text-center alert alert-danger" role="alert" *ngIf="deleteError">
   Error on deleting the product.
 </div>
 

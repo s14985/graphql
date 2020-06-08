@@ -8,8 +8,7 @@ import { EcommerceService } from '../../../services/ecommerce.service';
 	styleUrls: ['./suggested-product.component.scss'],
 })
 export class SuggestedProductComponent implements OnInit {
-	@Input()
-	item: Product;
+	@Input() item: Product;
 
 	constructor(private ecommerceService: EcommerceService) {}
 

@@ -7,4 +7,5 @@ export interface QueryResponse {
 	findAllProducts: Product[];
 	findProductsFromOrdersByProductId: Product[];
 	newProduct: Product;
+  deleteProduct: boolean
 }

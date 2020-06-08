@@ -8,11 +8,12 @@ import com.shop.graphql.service.OrderServiceImpl;
 import com.shop.graphql.service.ProductOrderServiceImpl;
 import com.shop.graphql.service.ProductServiceImpl;
 import com.shop.graphql.service.UserServiceImpl;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
@@ -83,6 +84,11 @@ public class Mutation implements GraphQLMutationResolver {
 		Product product = productService.getProductById(id);
 		product.setName(name);
 		return productService.save(product);
+	}
+
+	public boolean deleteProduct(Long id) {
+		productService.delete(id);
+		return true;
 	}
 
 	public User newUser(String email, String password, Role role) {

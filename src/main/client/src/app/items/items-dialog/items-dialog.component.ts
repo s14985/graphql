@@ -24,6 +24,11 @@ export class ItemsDialogComponent implements OnInit {
 		details: new FormControl('', [Validators.required]),
 	});
 
+  name = this.addForm.controls['name'];
+  price = this.addForm.controls['price'];
+  picture = this.addForm.controls['pictureUrl'];
+  details = this.addForm.controls['details'];
+
 	constructor(
 		private ecommerceService: EcommerceService,
 		public dialog: MatDialogRef<ItemsDialogComponent>
@@ -34,20 +39,20 @@ export class ItemsDialogComponent implements OnInit {
 	onSubmit() {
 		this.subNewProduct = this.ecommerceService
 			.newProduct(
-				this.addForm.controls['name'].value,
-				this.addForm.controls['price'].value,
-				this.addForm.controls['pictureUrl'].value,
-				this.addForm.controls['details'].value
+				this.name.value,
+				this.price.value,
+				this.picture.value,
+				this.details.value
 			)
 			.subscribe(
-				() => {
+				(result) => {
 					if (
-						!this.addForm.controls['name'].errors &&
-						!this.addForm.controls['price'].errors &&
-						!this.addForm.controls['pictureUrl'].errors &&
-						!this.addForm.controls['details'].errors
+						!this.name.errors &&
+						!this.price.errors &&
+						!this.picture.errors &&
+						!this.details.errors
 					) {
-						this.dialog.close(true);
+						this.dialog.close(result.newProduct);
 					}
 				},
 				(error) => {

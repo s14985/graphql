@@ -23,6 +23,7 @@ type Mutation {
 		details: String!
 	): Product
 	editProduct(id: ID!, name: String!): Product
+	deleteProduct(id: ID!): Boolean
 }
 
 type Query {

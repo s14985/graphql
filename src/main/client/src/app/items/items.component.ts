@@ -4,6 +4,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ItemsDialogComponent } from './items-dialog/items-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EcommerceService } from "../services/ecommerce.service";
+import { Product } from "../models/product.model";
 
 @Component({
 	selector: 'app-items',
@@ -23,7 +25,7 @@ export class ItemsComponent implements OnInit {
 	@ViewChild('orders', { static: false })
 	ordersC: OrdersComponent;
 
-	constructor(public dialog: MatDialog) {}
+	constructor(private dialog: MatDialog, private ecommerceService: EcommerceService) {}
 
 	ngOnInit(): void {}
 
@@ -33,9 +35,8 @@ export class ItemsComponent implements OnInit {
 
 	openDialog() {
 		const dialogRef = this.dialog.open(ItemsDialogComponent);
-
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log(`Dialog result: ${result}`);
+      this.ecommerceService.setNewProduct(result);
 		});
 	}
 }

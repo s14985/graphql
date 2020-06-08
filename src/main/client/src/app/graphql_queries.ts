@@ -82,10 +82,21 @@ export const newProduct = gql`
 			picture: $picture
 			details: $details
 		) {
+      id
 			name
 			price
 			picture
 			details
 		}
 	}
+`;
+
+export const deleteProduct = gql`
+  mutation(
+    $id: ID!
+  ) {
+    deleteProduct(
+      id: $id
+    )
+  }
 `;
