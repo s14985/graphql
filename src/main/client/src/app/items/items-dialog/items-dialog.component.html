@@ -27,7 +27,7 @@
       </mat-form-field>
     </form>
     <div class="mx-auto my-auto text-center alert alert-danger" role="alert" *ngIf="saveErrorMsg">
-      Error on adding the product.
+      Error on saving the product.
     </div>
     <div class="mx-auto my-auto text-center alert alert-danger" role="alert" *ngIf="loadErrorMsg">
       Error on loading the product.
@@ -36,5 +36,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button class="btnCancel btn btn-primary" mat-dialog-close>Cancel</button>
-  <button class="btnAdd btn btn-primary" (click)="onSubmit()">Add Product</button>
+  <button class="btnAdd btn btn-primary" (click)="onSubmit()">Save Product</button>
 </mat-dialog-actions>

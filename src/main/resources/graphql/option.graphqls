@@ -1,5 +1,0 @@
-type Option {
-	id: ID!
-	name: String!
-	optionGroup: OptionGroup
-}

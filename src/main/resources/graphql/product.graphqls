@@ -22,7 +22,13 @@ type Mutation {
 		picture: String!
 		details: String!
 	): Product
-	editProduct(id: ID!, name: String!): Product
+	editProduct(
+		id: ID!
+		name: String!
+		price: Float!
+		picture: String!
+		details: String!
+	): Product
 	deleteProduct(id: ID!): Boolean
 }
 

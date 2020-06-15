@@ -2,12 +2,13 @@ package com.shop.graphql;
 
 import com.shop.graphql.model.*;
 import com.shop.graphql.repository.*;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class GraphqlApplication {
@@ -21,9 +22,7 @@ public class GraphqlApplication {
 		ProductRepository productRepository,
 		OrderRepository orderRepository,
 		ProductOrderRepository productOrderRepository,
-		UserRepository userRepository,
-		OptionRepository optionRepository,
-		OptionGroupRepository optionGroupRepository
+		UserRepository userRepository
 	) {
 		return args -> {
 			User user1 = new User("a.poziomka@gmail.com", "pass", Role.USER);
@@ -40,37 +39,37 @@ public class GraphqlApplication {
 			Product product1 = new Product(
 				"Koc 1",
 				new BigDecimal("11.00"),
-				"assets/images/blanket-1.svg",
+				"https://loremflickr.com/320/240/boat",
 				"details"
 			);
 			Product product2 = new Product(
 				"Koc 2",
 				new BigDecimal("12.00"),
-				"assets/images/blanket-2.svg",
+				"https://loremflickr.com/320/240/boat",
 				"details"
 			);
 			Product product3 = new Product(
 				"Koc 3",
 				new BigDecimal("13.00"),
-				"assets/images/blanket-3.svg",
+				"https://loremflickr.com/320/240/boat",
 				"details"
 			);
 			Product product4 = new Product(
 				"Koc 4",
 				new BigDecimal("14.00"),
-				"assets/images/blanket-4.jpg",
+				"https://loremflickr.com/320/240/boat",
 				"details"
 			);
 			Product product5 = new Product(
 				"Koc 5",
 				new BigDecimal("15.00"),
-				"assets/images/blanket-5.jpeg",
+				"https://loremflickr.com/320/240/boat",
 				"details"
 			);
 			Product product6 = new Product(
 				"Koc 6",
 				new BigDecimal("16.00"),
-				"assets/images/blanket-6.jpg",
+				"https://loremflickr.com/320/240/boat",
 				"details"
 			);
 
@@ -118,27 +117,6 @@ public class GraphqlApplication {
 			productOrderRepository.save(new ProductOrder(order5, product4, 2));
 
 			productOrderRepository.save(new ProductOrder(order6, product2, 3));
-
-			Option option1 = new Option("Option 1");
-			Option option2 = new Option("Option 2");
-			Option option3 = new Option("Option 3");
-			Option option4 = new Option("Option 4");
-
-			OptionGroup optionGroup1 = new OptionGroup("OptionGroup 1");
-			OptionGroup optionGroup2 = new OptionGroup("OptionGroup 2");
-
-			option1.setOptionGroup(optionGroup1);
-			option2.setOptionGroup(optionGroup2);
-			option3.setOptionGroup(optionGroup1);
-			option4.setOptionGroup(optionGroup2);
-
-			optionGroup1.setOptions(Arrays.asList(option1, option3));
-			optionGroup2.setOptions(Arrays.asList(option2, option4));
-
-			optionGroupRepository.saveAll(Arrays.asList(optionGroup1, optionGroup2));
-			optionRepository.saveAll(
-				Arrays.asList(option1, option2, option3, option4)
-			);
 		};
 	}
 }

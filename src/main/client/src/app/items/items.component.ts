@@ -4,8 +4,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ItemsDialogComponent } from './items-dialog/items-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { EcommerceService } from "../services/ecommerce.service";
-import { Product } from "../models/product.model";
+import { EcommerceService } from '../services/ecommerce.service';
+import { Product } from '../models/product.model';
 
 @Component({
 	selector: 'app-items',
@@ -17,15 +17,18 @@ export class ItemsComponent implements OnInit {
 	error: string;
 
 	@ViewChild('productsList', { static: false })
-	productsC: ProductsListComponent;
+	products: ProductsListComponent;
 
 	@ViewChild('shoppingCart', { static: false })
-	shoppingCartC: ShoppingCartComponent;
+	shoppingCart: ShoppingCartComponent;
 
 	@ViewChild('orders', { static: false })
-	ordersC: OrdersComponent;
+	orders: OrdersComponent;
 
-	constructor(private dialog: MatDialog, private ecommerceService: EcommerceService) {}
+	constructor(
+		private dialog: MatDialog,
+		private ecommerceService: EcommerceService
+	) {}
 
 	ngOnInit(): void {}
 
@@ -33,10 +36,18 @@ export class ItemsComponent implements OnInit {
 		this.orderFinished = orderFinished;
 	}
 
-	openDialog() {
+	openDialog(item: Product) {
 		const dialogRef = this.dialog.open(ItemsDialogComponent);
+		dialogRef.componentInstance.data = item;
 		dialogRef.afterClosed().subscribe((result) => {
-      this.ecommerceService.setNewProduct(result);
+			this.ecommerceService.Product = result;
 		});
 	}
+
+  reset() {
+    this.orderFinished = false;
+    this.products.reset();
+    this.shoppingCart.reset();
+    this.orders.paid = false;
+  }
 }

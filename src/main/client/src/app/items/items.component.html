@@ -1,28 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-      <h6>Filter by material</h6>
-<!--      <div *ngFor="let material of materials">-->
-<!--        <mat-checkbox #checkbox="matCheckbox"-->
-<!--                      (click)="filterOnClick(checkbox, material)">-->
-<!--          {{material.name}}</mat-checkbox>-->
-<!--      </div>-->
-      <button class="backBtn btn btn-primary">Reset filter</button>
-    </div>
-    <div class="col-md-7">
+    <div class="col-md-9">
       <router-outlet #productsList *ngIf="!orderFinished"></router-outlet>
     </div>
     <div class="col-md-3 text-center" *ngIf="!orderFinished">
-      <app-shopping-cart #shoppingCart
-
+      <app-shopping-cart #shoppingCart (onOrderFinished)=finishOrder($event)
       ></app-shopping-cart>
       <div class="addBtn">
-        <button class="btn btn-primary" (click)="openDialog()">Add product</button>
+        <button class="btn btn-primary" (click)="openDialog(null)">Add product</button>
       </div>
     </div>
     <div class="col-md-4 offset-4" *ngIf="orderFinished">
-<!--      <app-orders #orders (onOrderCanceled)="finishOrder($event)"-->
-<!--                  (onOrderFinished)="reset()"></app-orders>-->
+      <app-orders #orders (onOrderCanceled)="finishOrder($event)"
+                  (onOrderFinished)="reset()"></app-orders>
     </div>
   </div>
 </div>

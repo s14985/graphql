@@ -82,7 +82,7 @@ export const newProduct = gql`
 			picture: $picture
 			details: $details
 		) {
-      id
+			id
 			name
 			price
 			picture
@@ -92,11 +92,67 @@ export const newProduct = gql`
 `;
 
 export const deleteProduct = gql`
+	mutation($id: ID!) {
+		deleteProduct(id: $id)
+	}
+`;
+
+export const findAllProductsFromOrdersByProductId = gql`
+	query($id: ID!) {
+		findAllProductsFromOrdersByProductId(id: $id) {
+			order {
+				productOrders {
+					product {
+						id
+						name
+						price
+						picture
+						details
+					}
+				}
+			}
+		}
+	}
+`;
+
+export const editProduct = gql`
+	mutation(
+		$id: ID!
+		$name: String!
+		$price: Float!
+		$picture: String!
+		$details: String!
+	) {
+		editProduct(
+			id: $id
+			name: $name
+			price: $price
+			picture: $picture
+			details: $details
+		) {
+			id
+			name
+			price
+			picture
+			details
+		}
+	}
+`;
+
+export const newOrder = gql`
   mutation(
-    $id: ID!
+    $productOrders: [NewProductOrderInput!]!
   ) {
-    deleteProduct(
-      id: $id
-    )
+    newOrder(productOrders: $productOrders) {
+      id
+      status
+      dateCreated
+      productOrders {
+        id
+      }
+      user {
+        id
+      }
+    }
   }
 `;

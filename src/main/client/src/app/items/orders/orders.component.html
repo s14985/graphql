@@ -1,7 +1,21 @@
-<p>orders works!</p>
-<div>
-  <label>List of orders: </label>
-  <div *ngFor="let order of orders">
-    {{ order.id }}
+<div class="container text-center justify-content-center border rounded">
+  <h2 class="text-center">ORDER</h2>
+  <ul>
+    <li *ngFor="let order of orders.productOrders">
+      - {{ order.product.name }} - ${{ order.product.price }} x {{ order.quantity}} pcs.
+    </li>
+  </ul>
+  <h4 class="text-center">Total amount: ${{ total }}</h4>
+  <div class="row">
+    <button class="col-3 offset-2 btn btn-primary" (click)="pay()" *ngIf="!paid">Pay</button>
+    <button class="backBtn col-3 offset-2 btn btn-primary" (click)="back()" *ngIf="!paid">Cancel</button>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="paid">
+    <strong>Congratulation!</strong> You successfully made the order.
+    <p>Id: {{order.id}}</p>
+    <p>Status: {{order.status}}</p>
+    <div>
+      <button class="finishBtn btn btn-primary" (click)="finish()">Finish</button>
+    </div>
   </div>
 </div>

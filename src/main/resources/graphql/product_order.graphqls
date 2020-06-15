@@ -4,11 +4,16 @@ type ProductOrder {
 	product: Product
 }
 
-input ProductOrderInput {
-	id: ID
-	orderId: ID
-	productId: ID
-	quantity: Int
+input NewProductOrderInput {
+	productId: ID!
+	quantity: Int!
+}
+
+input EditProductOrderInput {
+	id: ID!
+	orderId: ID!
+	productId: ID!
+	quantity: Int!
 }
 
 extend type Query {

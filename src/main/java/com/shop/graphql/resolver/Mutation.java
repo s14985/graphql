@@ -1,8 +1,9 @@
 package com.shop.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.shop.graphql.dto.input.EditProductOrderInput;
+import com.shop.graphql.dto.input.NewProductOrderInput;
 import com.shop.graphql.dto.input.OrderInput;
-import com.shop.graphql.dto.input.ProductOrderInput;
 import com.shop.graphql.model.*;
 import com.shop.graphql.service.OrderServiceImpl;
 import com.shop.graphql.service.ProductOrderServiceImpl;
@@ -23,22 +24,22 @@ public class Mutation implements GraphQLMutationResolver {
 	private ProductOrderServiceImpl orderProductService;
 	private ProductServiceImpl productService;
 
-	public Order newOrder(List<ProductOrderInput> productOrderInputs) {
+	public Order newOrder(List<NewProductOrderInput> newProductOrderInputs) {
 		Order order = new Order(Status.CREATED);
 		order.setUser(userService.getCurrentUser());
 		order = orderService.create(order);
 
 		Order finalOrder = order;
 		order.setProductOrders(
-			productOrderInputs
+			newProductOrderInputs
 				.stream()
 				.map(
-					productOrderInput ->
+						newProductOrderInput ->
 						orderProductService.create(
 							new ProductOrder(
 								finalOrder,
-								productService.getProductById(productOrderInput.getProductId()),
-								productOrderInput.getQuantity()
+								productService.getProductById(newProductOrderInput.getProductId()),
+								newProductOrderInput.getQuantity()
 							)
 						)
 				)
@@ -48,21 +49,21 @@ public class Mutation implements GraphQLMutationResolver {
 		return orderService.update(order);
 	}
 
-	public Order editOrder(Long id, List<ProductOrderInput> productOrderInputs) {
+	public Order editOrder(Long id, List<EditProductOrderInput> editProductOrderInputs) {
 		Order order = orderService.getOrderById(id);
 		order.setProductOrders(
-			productOrderInputs
+			editProductOrderInputs
 				.stream()
 				.map(
-					productOrderInput -> {
+						newProductOrderInput -> {
 						ProductOrder productOrder = orderProductService.getById(
-							productOrderInput.getId()
+							newProductOrderInput.getId()
 						);
 						productOrder.setOrder(order);
 						productOrder.setProduct(
-							productService.getProductById(productOrderInput.getProductId())
+							productService.getProductById(newProductOrderInput.getProductId())
 						);
-						productOrder.setQuantity(productOrderInput.getQuantity());
+						productOrder.setQuantity(newProductOrderInput.getQuantity());
 						return orderProductService.create(productOrder);
 					}
 				)
@@ -80,13 +81,23 @@ public class Mutation implements GraphQLMutationResolver {
 		return productService.save(new Product(name, price, picture, details));
 	}
 
-	public Product editProduct(Long id, String name) {
+	public Product editProduct(
+		Long id,
+		String name,
+		BigDecimal price,
+		String picture,
+		String details
+	) {
 		Product product = productService.getProductById(id);
 		product.setName(name);
+		product.setPrice(price);
+		product.setPicture(picture);
+		product.setDetails(details);
 		return productService.save(product);
 	}
 
 	public boolean deleteProduct(Long id) {
+		orderProductService.deleteAll(orderProductService.getAllByProductId(id));
 		productService.delete(id);
 		return true;
 	}

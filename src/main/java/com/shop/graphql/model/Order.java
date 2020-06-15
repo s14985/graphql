@@ -2,11 +2,13 @@ package com.shop.graphql.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.time.OffsetDateTime;
-import java.util.List;
+import com.shop.graphql.dto.input.NewProductOrderInput;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.Valid;
-import lombok.*;
+import java.time.OffsetDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -35,6 +37,11 @@ public class Order {
 
 	public Order(Status status) {
 		this.status = status;
+		this.dateCreated = OffsetDateTime.now();
+	}
+
+	public Order(List<NewProductOrderInput> productOrders) {
+		this.status = Status.CREATED;
 		this.dateCreated = OffsetDateTime.now();
 	}
 

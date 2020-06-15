@@ -19,8 +19,8 @@ enum Status {
 }
 
 extend type Mutation {
-	newOrder(orderProducts: [ProductOrderInput]!): Order
-	editOrder(id: ID!, orderProducts: [ProductOrderInput]!): Order
+	newOrder(productOrders: [NewProductOrderInput!]!): Order
+	editOrder(id: ID!, productOrders: [EditProductOrderInput]!): Order
 }
 
 extend type Query {

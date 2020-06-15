@@ -57,4 +57,8 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	public Iterable<ProductOrder> getAllProductOrders() {
 		return productOrderRepository.findAll();
 	}
+
+	public void deleteAll(List<ProductOrder> productOrders) {
+		productOrderRepository.deleteAll(productOrders);
+	}
 }
