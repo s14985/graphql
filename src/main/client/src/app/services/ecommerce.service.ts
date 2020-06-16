@@ -11,13 +11,13 @@ import {
 	deleteProduct,
 	findAllProductsFromOrdersByProductId,
 	editProduct,
-  newOrder,
+	newOrder,
 } from '../graphql_queries';
 import { QueryResponse } from '../interfaces/query-response';
 import { Product } from '../models/product.model';
 import { ProductOrder } from '../models/product-order.model';
 import { ProductOrders } from '../models/product-orders.model';
-import { NewProductOrder } from "../models/new-product-order.model";
+import { NewProductOrder } from '../models/new-product-order.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -166,14 +166,16 @@ export class EcommerceService {
 			.pipe(map((result) => result.data));
 	}
 
-  newOrder(
-    productOrders: ProductOrders): Observable<QueryResponse> {
-	  return this.apollo.mutate<QueryResponse>({
-      mutation: newOrder,
-      variables: {
-        productOrders: productOrders.productOrders.map(value => new NewProductOrder(value.product.id, value.quantity
-        ))
-      },
-    }).pipe(map((result) => result.data));
-  }
+	newOrder(productOrders: ProductOrders): Observable<QueryResponse> {
+		return this.apollo
+			.mutate<QueryResponse>({
+				mutation: newOrder,
+				variables: {
+					productOrders: productOrders.productOrders.map(
+						(value) => new NewProductOrder(value.product.id, value.quantity)
+					),
+				},
+			})
+			.pipe(map((result) => result.data));
+	}
 }

@@ -1,7 +1,10 @@
 package com.shop.graphql;
 
 import com.shop.graphql.model.*;
-import com.shop.graphql.repository.*;
+import com.shop.graphql.repository.OrderRepository;
+import com.shop.graphql.repository.ProductOrderRepository;
+import com.shop.graphql.repository.ProductRepository;
+import com.shop.graphql.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,41 +39,45 @@ public class GraphqlApplication {
 			Order order5 = new Order(Status.CREATED);
 			Order order6 = new Order(Status.CREATED);
 
+			String lorem =
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+			String pic = "https://loremflickr.com/200/150/";
+
 			Product product1 = new Product(
-				"Koc 1",
+				"Item 1",
 				new BigDecimal("11.00"),
-				"https://loremflickr.com/320/240/boat",
-				"details"
+				pic + "boat",
+				lorem
 			);
 			Product product2 = new Product(
-				"Koc 2",
+				"Item 2",
 				new BigDecimal("12.00"),
-				"https://loremflickr.com/320/240/boat",
-				"details"
+				pic + "dog",
+				lorem
 			);
 			Product product3 = new Product(
-				"Koc 3",
+				"Item 3",
 				new BigDecimal("13.00"),
-				"https://loremflickr.com/320/240/boat",
-				"details"
+				pic + "cat",
+				lorem
 			);
 			Product product4 = new Product(
-				"Koc 4",
+				"Item 4",
 				new BigDecimal("14.00"),
-				"https://loremflickr.com/320/240/boat",
-				"details"
+				pic + "kite",
+				lorem
 			);
 			Product product5 = new Product(
-				"Koc 5",
+				"Item 5",
 				new BigDecimal("15.00"),
-				"https://loremflickr.com/320/240/boat",
-				"details"
+				pic + "bee",
+				lorem
 			);
 			Product product6 = new Product(
-				"Koc 6",
+				"Item 6",
 				new BigDecimal("16.00"),
-				"https://loremflickr.com/320/240/boat",
-				"details"
+				pic + "car",
+				lorem
 			);
 
 			order1.setUser(user1);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-home',
@@ -6,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-	constructor() {}
+  showImgContent: boolean = true;
 
-	ngOnInit(): void {}
+	constructor(private router: Router) {}
+
+	ngOnInit(): void {
+    if (window.innerWidth < 768)
+      this.showImgContent = false;
+    else
+      this.showImgContent = true;
+  }
+
+  shopNow() {
+    this.router.navigate(['items']);
+  }
 }

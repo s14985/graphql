@@ -43,12 +43,18 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 	}
 
 	addToCart(order: ProductOrder) {
-		this.ecommerceService.SelectedProductOrder = new ProductOrder(order.product, 1);
+		this.ecommerceService.SelectedProductOrder = new ProductOrder(
+			order.product,
+			1
+		);
 		this.selectedProductOrder = this.ecommerceService.SelectedProductOrder;
 	}
 
 	removeFromCart(order: ProductOrder) {
-		this.ecommerceService.SelectedProductOrder = new ProductOrder(order.product, -1);
+		this.ecommerceService.SelectedProductOrder = new ProductOrder(
+			order.product,
+			-1
+		);
 		this.selectedProductOrder = this.ecommerceService.SelectedProductOrder;
 	}
 
@@ -103,11 +109,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 		});
 	}
 
-  reset() {
-    this.orderFinished = false;
-    this.orders = new ProductOrders();
-    this.orders.productOrders = []
-    this.loadTotal();
-    this.total = 0;
-  }
+	reset() {
+		this.orderFinished = false;
+		this.orders = new ProductOrders();
+		this.orders.productOrders = [];
+		this.loadTotal();
+		this.total = 0;
+	}
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../../interfaces/product';
-import { EcommerceService } from '../../../services/ecommerce.service';
 
 @Component({
 	selector: 'app-suggested-product',
@@ -10,7 +9,7 @@ import { EcommerceService } from '../../../services/ecommerce.service';
 export class SuggestedProductComponent implements OnInit {
 	@Input() item: Product;
 
-	constructor(private ecommerceService: EcommerceService) {}
+	constructor() {}
 
 	ngOnInit(): void {}
 }

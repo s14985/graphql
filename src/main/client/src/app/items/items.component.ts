@@ -44,10 +44,10 @@ export class ItemsComponent implements OnInit {
 		});
 	}
 
-  reset() {
-    this.orderFinished = false;
-    this.products.reset();
-    this.shoppingCart.reset();
-    this.orders.paid = false;
-  }
+	reset() {
+		this.orderFinished = false;
+		this.products.reset();
+		this.shoppingCart.reset();
+		this.orders.paid = false;
+	}
 }

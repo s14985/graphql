@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
 	private subProduct: Subscription;
+	private subRoute: Subscription;
 	item: Product;
 	order: ProductOrder;
 	selectedProductOrder: ProductOrder;
@@ -28,7 +29,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.activatedRoute.params.subscribe((params) => {
+		this.subRoute = this.activatedRoute.params.subscribe((params) => {
 			this.loadProduct(+params['id']);
 		});
 
@@ -36,12 +37,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 			this.loadProduct(this.ecommerceService.Product.id);
 		});
 
-		this.activatedRoute.params.subscribe((params) => {
+		this.subRoute = this.activatedRoute.params.subscribe((params) => {
 			this.ecommerceService
 				.findAllProductsFromOrdersByProductId(+params['id'])
 				.subscribe((result) => {
 					this.suggestedItems = this.getSuggestedItems(
-						this.getConcatProductOrders(result.findAllProductsFromOrdersByProductId),
+						this.getConcatProductOrders(
+							result.findAllProductsFromOrdersByProductId
+						),
 						JSON.stringify,
 						+params['id']
 					).sort(() => 0.5 - Math.random());
@@ -49,17 +52,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 		});
 	}
 
-  getSuggestedItems(a, key, id) {
-    const seen = {};
-    return a.filter(function (item) {
-      const k = key(item);
-      return item.product.id == id
-        ? false
-        : seen.hasOwnProperty(k)
-          ? false
-          : (seen[k] = true);
-    });
-  }
+	getSuggestedItems(a, key, id) {
+		const seen = {};
+		return a.filter(function (item) {
+			const k = key(item);
+			return item.product.id == id
+				? false
+				: seen.hasOwnProperty(k)
+				? false
+				: (seen[k] = true);
+		});
+	}
 	private loadProduct(id: number) {
 		this.ecommerceService
 			.findProductById(id)
@@ -68,15 +71,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.subProduct.unsubscribe();
+		this.subRoute.unsubscribe();
 	}
 
-  getConcatProductOrders(items: any[]) {
-    let m = [];
-    for (let i = 0; i < items.length; i++) {
-      m = [].concat.apply(m, items[i].order.productOrders);
-    }
-    return m;
-  }
+	getConcatProductOrders(items: any[]) {
+		let m = [];
+		for (let i = 0; i < items.length; i++) {
+			m = [].concat.apply(m, items[i].order.productOrders);
+		}
+		return m;
+	}
 
 	removeProduct() {
 		this.activatedRoute.params.subscribe((params) => {

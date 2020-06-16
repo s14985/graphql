@@ -23,7 +23,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 	checker: boolean;
 	errorMsg: boolean;
 	quantity: number;
-  productSelected: boolean;
+	productSelected: boolean;
 
 	constructor(
 		private router: Router,
@@ -76,11 +76,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 		);
 	}
 
-  reset() {
-    this.productOrders = [];
-    this.loadProducts();
-    this.ecommerceService.ProductOrders.productOrders = [];
-    this.loadOrders();
-    this.productSelected = false;
-  }
+	reset() {
+		this.productOrders = [];
+		this.loadProducts();
+		this.ecommerceService.ProductOrders.productOrders = [];
+		this.loadOrders();
+		this.productSelected = false;
+	}
 }

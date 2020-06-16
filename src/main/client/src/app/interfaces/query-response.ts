@@ -10,5 +10,5 @@ export interface QueryResponse {
 	deleteProduct: boolean;
 	findAllProductsFromOrdersByProductId: Product[];
 	editProduct: Product;
-  newOrder: Order;
+	newOrder: Order;
 }

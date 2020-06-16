@@ -2,11 +2,9 @@ package com.shop.graphql.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shop.graphql.dto.input.NewProductOrderInput;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -32,16 +30,10 @@ public class Order {
 	private User user;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	@Valid
 	private List<ProductOrder> productOrders;
 
 	public Order(Status status) {
 		this.status = status;
-		this.dateCreated = OffsetDateTime.now();
-	}
-
-	public Order(List<NewProductOrderInput> productOrders) {
-		this.status = Status.CREATED;
 		this.dateCreated = OffsetDateTime.now();
 	}
 

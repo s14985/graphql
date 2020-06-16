@@ -9,12 +9,11 @@ import com.shop.graphql.service.OrderServiceImpl;
 import com.shop.graphql.service.ProductOrderServiceImpl;
 import com.shop.graphql.service.ProductServiceImpl;
 import com.shop.graphql.service.UserServiceImpl;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
@@ -34,11 +33,13 @@ public class Mutation implements GraphQLMutationResolver {
 			newProductOrderInputs
 				.stream()
 				.map(
-						newProductOrderInput ->
+					newProductOrderInput ->
 						orderProductService.create(
 							new ProductOrder(
 								finalOrder,
-								productService.getProductById(newProductOrderInput.getProductId()),
+								productService.getProductById(
+									newProductOrderInput.getProductId()
+								),
 								newProductOrderInput.getQuantity()
 							)
 						)
@@ -49,13 +50,16 @@ public class Mutation implements GraphQLMutationResolver {
 		return orderService.update(order);
 	}
 
-	public Order editOrder(Long id, List<EditProductOrderInput> editProductOrderInputs) {
+	public Order editOrder(
+		Long id,
+		List<EditProductOrderInput> editProductOrderInputs
+	) {
 		Order order = orderService.getOrderById(id);
 		order.setProductOrders(
 			editProductOrderInputs
 				.stream()
 				.map(
-						newProductOrderInput -> {
+					newProductOrderInput -> {
 						ProductOrder productOrder = orderProductService.getById(
 							newProductOrderInput.getId()
 						);

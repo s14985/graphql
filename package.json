@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "check": "npx prettier --check **/*.{java,graphqls,ts}",
-    "format": "npx prettier --write **/*.{java,graphqls,ts}"
+    "check": "npx prettier --check **/*.{java,graphqls,ts,scss,html}",
+    "format": "npx prettier --write **/*.{java,graphqls,ts,scss,html}"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/s14985/graphql#readme",
   "devDependencies": {
-    "java-parser": "^0.7.1",
+    "java-parser": "^0.8.0",
     "prettier": "2.0.5",
     "prettier-plugin-java": "^0.8.0"
   },

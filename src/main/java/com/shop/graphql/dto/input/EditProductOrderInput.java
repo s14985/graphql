@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class EditProductOrderInput {
-    private Long id;
-    private Long orderId;
-    private Long productId;
-    private Integer quantity;
+	private Long id;
+	private Long orderId;
+	private Long productId;
+	private Integer quantity;
 }

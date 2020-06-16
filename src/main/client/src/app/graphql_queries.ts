@@ -140,19 +140,17 @@ export const editProduct = gql`
 `;
 
 export const newOrder = gql`
-  mutation(
-    $productOrders: [NewProductOrderInput!]!
-  ) {
-    newOrder(productOrders: $productOrders) {
-      id
-      status
-      dateCreated
-      productOrders {
-        id
-      }
-      user {
-        id
-      }
-    }
-  }
+	mutation($productOrders: [NewProductOrderInput!]!) {
+		newOrder(productOrders: $productOrders) {
+			id
+			status
+			dateCreated
+			productOrders {
+				id
+			}
+			user {
+				id
+			}
+		}
+	}
 `;
