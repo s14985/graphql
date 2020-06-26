@@ -21,7 +21,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 	orderFinished: boolean;
 	total: number;
 	orders: ProductOrders;
-	order: ProductOrders;
 	selectedProductOrder: ProductOrder;
 
 	@Output() onOrderFinished: EventEmitter<boolean>;
@@ -39,7 +38,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		// this.sub.unsubscribe();
+		this.sub.unsubscribe();
 	}
 
 	addToCart(order: ProductOrder) {

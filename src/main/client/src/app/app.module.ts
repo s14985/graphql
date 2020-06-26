@@ -25,6 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EcommerceService } from './services/ecommerce.service';
 import { SuggestedProductComponent } from './items/product-details/suggested-product/suggested-product.component';
+import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from "./services/authentication.service";
 
 @NgModule({
 	declarations: [
@@ -41,6 +43,7 @@ import { SuggestedProductComponent } from './items/product-details/suggested-pro
 		ShoppingCartComponent,
 		ItemsDialogComponent,
 		SuggestedProductComponent,
+		LoginComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -56,7 +59,7 @@ import { SuggestedProductComponent } from './items/product-details/suggested-pro
 		MatInputModule,
 		FormsModule,
 	],
-	providers: [EcommerceService],
+	providers: [EcommerceService, AuthenticationService],
 	bootstrap: [AppComponent],
 	entryComponents: [ItemsDialogComponent],
 })

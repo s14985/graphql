@@ -1,18 +1,25 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-9">
-      <router-outlet #productsList *ngIf="!orderFinished"></router-outlet>
-    </div>
-    <div class="col-md-3 text-center" *ngIf="!orderFinished">
-      <app-shopping-cart #shoppingCart (onOrderFinished)=finishOrder($event)
-      ></app-shopping-cart>
-      <div class="addBtn">
-        <button class="btn btn-primary" (click)="openDialog(null)">Add product</button>
-      </div>
-    </div>
-    <div class="col-md-4 offset-4" *ngIf="orderFinished">
-      <app-orders #orders (onOrderCanceled)="finishOrder($event)"
-                  (onOrderFinished)="reset()"></app-orders>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-md-9">
+			<router-outlet #productsList *ngIf="!orderFinished"></router-outlet>
+		</div>
+		<div class="col-md-3 text-center" *ngIf="!orderFinished">
+			<app-shopping-cart
+				#shoppingCart
+				(onOrderFinished)="finishOrder($event)"
+			></app-shopping-cart>
+			<div class="addBtn">
+				<button class="btn btn-primary" (click)="openDialog(null)">
+					Add product
+				</button>
+			</div>
+		</div>
+		<div class="col-md-4 offset-4" *ngIf="orderFinished">
+			<app-orders
+				#orders
+				(onOrderCanceled)="finishOrder($event)"
+				(onOrderFinished)="reset()"
+			></app-orders>
+		</div>
+	</div>
 </div>

@@ -1,9 +1,12 @@
 package com.shop.graphql.model;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
@@ -17,9 +20,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//	@NotNull(message = "First name is required.")
-	//	@Basic(optional = false)
-	//	private String firstName;
+	@NotNull(message = "First name is required.")
+	@Basic(optional = false)
+	private String firstName;
+
 	//
 	//	@NotNull(message = "Last name is required.")
 	//	@Basic(optional = false)
@@ -57,7 +61,7 @@ public class User {
 	private List<Order> orders;
 
 	public User(
-		//		@NotNull(message = "First name is required.") String firstName,
+		@NotNull(message = "First name is required.") String firstName,
 		//		@NotNull(message = "Last name is required.") String lastName,
 		//		@NotNull(message = "Street is required.") String street,
 		//		@NotNull(message = "Zip code is required.") String zipCode,
@@ -67,7 +71,7 @@ public class User {
 		@NotNull(message = "Password is required.") String password,
 		@NotNull(message = "User type is required.") Role userType
 	) {
-		//		this.firstName = firstName;
+		this.firstName = firstName;
 		//		this.lastName = lastName;
 		//		this.street = street;
 		//		this.zipCode = zipCode;
@@ -77,8 +81,8 @@ public class User {
 		this.password = password;
 		this.userType = userType;
 	}
-	//
-	//	public Collection<? extends GrantedAuthority> getAuthorities() {
-	//		return Collections.singletonList(() -> userType.getRole());
-	//	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return Collections.singletonList(() -> userType.getRole());
+	}
 }

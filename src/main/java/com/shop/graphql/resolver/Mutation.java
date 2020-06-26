@@ -5,23 +5,28 @@ import com.shop.graphql.dto.input.EditProductOrderInput;
 import com.shop.graphql.dto.input.NewProductOrderInput;
 import com.shop.graphql.dto.input.OrderInput;
 import com.shop.graphql.model.*;
-import com.shop.graphql.service.OrderServiceImpl;
-import com.shop.graphql.service.ProductOrderServiceImpl;
-import com.shop.graphql.service.ProductServiceImpl;
-import com.shop.graphql.service.UserServiceImpl;
+import com.shop.graphql.service.*;
+import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class Mutation implements GraphQLMutationResolver {
-	private UserServiceImpl userService;
-	private OrderServiceImpl orderService;
-	private ProductOrderServiceImpl orderProductService;
-	private ProductServiceImpl productService;
+	private final UserService userService;
+	private final OrderService orderService;
+	private final ProductOrderService productOrderService;
+	private final ProductService productService;
+	private final DomainUserDetailsService userDetailsService;
+	private final AuthenticationManager authenticationManager;
 
 	public Order newOrder(List<NewProductOrderInput> newProductOrderInputs) {
 		Order order = new Order(Status.CREATED);
@@ -34,7 +39,7 @@ public class Mutation implements GraphQLMutationResolver {
 				.stream()
 				.map(
 					newProductOrderInput ->
-						orderProductService.create(
+						productOrderService.create(
 							new ProductOrder(
 								finalOrder,
 								productService.getProductById(
@@ -60,7 +65,7 @@ public class Mutation implements GraphQLMutationResolver {
 				.stream()
 				.map(
 					newProductOrderInput -> {
-						ProductOrder productOrder = orderProductService.getById(
+						ProductOrder productOrder = productOrderService.getById(
 							newProductOrderInput.getId()
 						);
 						productOrder.setOrder(order);
@@ -68,7 +73,7 @@ public class Mutation implements GraphQLMutationResolver {
 							productService.getProductById(newProductOrderInput.getProductId())
 						);
 						productOrder.setQuantity(newProductOrderInput.getQuantity());
-						return orderProductService.create(productOrder);
+						return productOrderService.create(productOrder);
 					}
 				)
 				.collect(Collectors.toList())
@@ -101,22 +106,29 @@ public class Mutation implements GraphQLMutationResolver {
 	}
 
 	public boolean deleteProduct(Long id) {
-		orderProductService.deleteAll(orderProductService.getAllByProductId(id));
+		productOrderService.deleteAll(productOrderService.getAllByProductId(id));
 		productService.delete(id);
 		return true;
 	}
 
-	public User newUser(String email, String password, Role role) {
-		return userService.save(new User(email, password, role));
+	public User newUser(
+		String firstName,
+		String email,
+		String password,
+		Role role
+	) {
+		return userService.save(new User(firstName, email, password, role));
 	}
 
 	public User editUser(
 		Long id,
+		String firstName,
 		String email,
 		String password,
 		List<OrderInput> orderInputs
 	) {
 		User user = userService.getUserById(id);
+		user.setFirstName(firstName);
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setOrders(
@@ -126,5 +138,24 @@ public class Mutation implements GraphQLMutationResolver {
 				.collect(Collectors.toList())
 		);
 		return userService.save(user);
+	}
+
+	public User login(String email, String password) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+			userDetails,
+			password,
+			userDetails.getAuthorities()
+		);
+		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+		if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+			SecurityContextHolder
+				.getContext()
+				.setAuthentication(usernamePasswordAuthenticationToken);
+			return userService.getCurrentUser();
+		} else {
+			throw new BadCredentialsException(email);
+		}
 	}
 }

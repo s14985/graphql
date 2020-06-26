@@ -1,35 +1,58 @@
 <div class="row">
-  <div class="row card-deck" *ngIf="productOrders.length > 0">
-    <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch" *ngFor="let order of productOrders">
-      <div class="card">
-        <a [routerLink]="['./', order.product.id]">
-          <img src={{order.product.picture}} class="card-img-top" alt="" id="{{order.product.id}}">
-        </a>
-        <div class="card-body">
-          <div>
-            <h5><b>{{order.product.name}}</b></h5>
-            <h6>${{order.product.price}}</h6>
-          </div>
-          <div class="row">
-            <div class="col-6 col-sm-4">
-              <input type="number" min="0" class="form-control" [(ngModel)]=order.quantity>
-            </div>
-            <div class="col-6 col-sm-2">
-              <button class="btn btn-primary mx-1" (click)="addToCart(order)"
-                      [disabled]="order.quantity <= 0">Add
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row justify-content-center my-auto" *ngIf="checker">
-    <div id="noItems" class="col-12 text-center my-auto">
-      <img src="../../../assets/images/notfound.png">
-    </div>
-  </div>
-  <div class="mx-auto my-auto text-center alert alert-danger" role="alert" *ngIf="errorMsg">
-    Error occurred on loading the products.
-  </div>
+	<div class="row card-deck" *ngIf="productOrders.length > 0">
+		<div
+			class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch"
+			*ngFor="let order of productOrders"
+		>
+			<div class="card">
+				<a [routerLink]="['./', order.product.id]">
+					<img
+						src="{{ order.product.picture }}"
+						class="card-img-top"
+						alt=""
+						id="{{ order.product.id }}"
+					/>
+				</a>
+				<div class="card-body">
+					<div>
+						<h5>
+							<b>{{ order.product.name }}</b>
+						</h5>
+						<h6>${{ order.product.price }}</h6>
+					</div>
+					<div class="row">
+						<div class="col-6 col-sm-4">
+							<input
+								type="number"
+								min="0"
+								class="form-control"
+								[(ngModel)]="order.quantity"
+							/>
+						</div>
+						<div class="col-6 col-sm-2">
+							<button
+								class="btn btn-primary mx-1"
+								(click)="addToCart(order)"
+								[disabled]="order.quantity <= 0"
+							>
+								Add
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center my-auto" *ngIf="checker">
+		<div id="noItems" class="col-12 text-center my-auto">
+			<img src="../../../assets/images/notfound.png" />
+		</div>
+	</div>
+	<div
+		class="mx-auto my-auto text-center alert alert-danger"
+		role="alert"
+		*ngIf="errorMsg"
+	>
+		Error occurred on loading the products.
+	</div>
 </div>

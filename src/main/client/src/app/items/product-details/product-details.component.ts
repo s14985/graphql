@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EcommerceService } from '../../services/ecommerce.service';
-import { Product } from '../../interfaces/product';
 import { ItemsDialogComponent } from '../items-dialog/items-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductOrder } from '../../models/product-order.model';
 import { Subscription } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user.model';
+import { Product } from "../../models/product.model";
 
 @Component({
 	selector: 'app-product-details',
@@ -13,46 +15,62 @@ import { Subscription } from 'rxjs';
 	styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
+	private subProductChange: Subscription;
 	private subProduct: Subscription;
-	private subRoute: Subscription;
-	item: Product;
+	item: Product = new Product();
 	order: ProductOrder;
 	selectedProductOrder: ProductOrder;
 	deleteError: boolean;
-	suggestedItems: any[];
+	suggestedItems: any[] = [];
+	currentUser: User;
 
 	constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private ecommerceService: EcommerceService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private authenticationService: AuthenticationService
 	) {}
 
 	ngOnInit(): void {
-		this.subRoute = this.activatedRoute.params.subscribe((params) => {
+		this.subProduct = this.activatedRoute.params.subscribe((params) => {
 			this.loadProduct(+params['id']);
+			this.currentUser = this.authenticationService.getCurrentUser();
+			this.currentUser
+				? this.getSuggestedProducts(+params['id'])
+				: this.getRandomProducts();
 		});
 
-		this.subProduct = this.ecommerceService.ProductChanged$.subscribe(() => {
-			this.loadProduct(this.ecommerceService.Product.id);
-		});
+		this.subProductChange = this.ecommerceService.ProductChanged$.subscribe(
+			() => {
+				this.loadProduct(this.ecommerceService.Product.id);
+			}
+		);
+	}
 
-		this.subRoute = this.activatedRoute.params.subscribe((params) => {
-			this.ecommerceService
-				.findAllProductsFromOrdersByProductId(+params['id'])
-				.subscribe((result) => {
-					this.suggestedItems = this.getSuggestedItems(
-						this.getConcatProductOrders(
-							result.findAllProductsFromOrdersByProductId
-						),
-						JSON.stringify,
-						+params['id']
-					).sort(() => 0.5 - Math.random());
-				});
+	private getSuggestedProducts(id: number) {
+		this.ecommerceService
+			.findAllProductsFromOrdersByProductId(id)
+			.subscribe((result) => {
+				this.suggestedItems = this.getSuggestedItems(
+					this.getConcatProductOrders(
+						result.findAllProductsFromOrdersByProductId
+					),
+					JSON.stringify,
+					id
+				).sort(() => 0.5 - Math.random());
+			});
+	}
+
+	private getRandomProducts() {
+		this.ecommerceService.findAllProducts().subscribe((result) => {
+			this.suggestedItems = result.findAllProducts.sort(
+				() => 0.5 - Math.random()
+			);
 		});
 	}
 
-	getSuggestedItems(a, key, id) {
+	private getSuggestedItems(a, key, id) {
 		const seen = {};
 		return a.filter(function (item) {
 			const k = key(item);
@@ -70,11 +88,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		this.subProductChange.unsubscribe();
 		this.subProduct.unsubscribe();
-		this.subRoute.unsubscribe();
 	}
 
-	getConcatProductOrders(items: any[]) {
+	private getConcatProductOrders(items: any[]) {
 		let m = [];
 		for (let i = 0; i < items.length; i++) {
 			m = [].concat.apply(m, items[i].order.productOrders);

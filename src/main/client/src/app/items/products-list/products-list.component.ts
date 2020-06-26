@@ -53,13 +53,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 		this.selectedProductOrder = this.ecommerceService.SelectedProductOrder;
 	}
 
-	loadOrders() {
+	private loadOrders() {
 		this.subOrders = this.ecommerceService.OrdersChanged$.subscribe(() => {
 			this.shoppingCartOrders = this.ecommerceService.ProductOrders;
 		});
 	}
 
-	loadProducts() {
+	private loadProducts() {
 		this.productOrders = [];
 		this.ecommerceService.findAllProducts().subscribe(
 			(result) => {

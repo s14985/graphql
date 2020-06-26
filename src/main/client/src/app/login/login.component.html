@@ -1,0 +1,41 @@
+<div class="container">
+	<div class="col-6 offset-3 text-center">
+		<h4>Please enter your email and password to log in.</h4>
+	</div>
+	<div class="col-6 offset-3 text-center">
+		<form [formGroup]="loginForm" (ngSubmit)="login()">
+			<mat-form-field class="col-10">
+				<input
+					type="text"
+					matInput
+					placeholder="email"
+					formControlName="email"
+				/>
+				<mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+					Field required.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="col-10">
+				<input
+					type="password"
+					matInput
+					placeholder="password"
+					formControlName="password"
+				/>
+				<mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+					Field required.
+				</mat-error>
+			</mat-form-field>
+			<div>
+				<button class="btn btn-primary" type="submit">Login</button>
+			</div>
+		</form>
+		<div
+			class="mx-auto my-auto text-center alert alert-danger"
+			role="alert"
+			*ngIf="error"
+		>
+			{{ errorMsg }}
+		</div>
+	</div>
+</div>

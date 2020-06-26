@@ -7,6 +7,7 @@ import { ItemsComponent } from './items/items.component';
 import { ProductDetailsComponent } from './items/product-details/product-details.component';
 import { ProductsListComponent } from './items/products-list/products-list.component';
 import { ErrorComponent } from './shared/error/error.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 	{
@@ -35,6 +36,10 @@ const routes: Routes = [
 				component: ProductDetailsComponent,
 			},
 		],
+	},
+	{
+		path: 'login',
+		component: LoginComponent,
 	},
 	{
 		path: '**',

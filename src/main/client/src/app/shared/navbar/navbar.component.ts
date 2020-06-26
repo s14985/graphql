@@ -9,6 +9,7 @@ export class NavbarComponent implements OnInit {
 	collapsed = true;
 	home = false;
 	items = false;
+	log = false;
 
 	constructor() {}
 

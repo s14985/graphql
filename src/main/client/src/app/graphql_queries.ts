@@ -154,3 +154,12 @@ export const newOrder = gql`
 		}
 	}
 `;
+
+export const login = gql`
+	mutation($email: String!, $password: String!) {
+		login(email: $email, password: $password) {
+			id
+			firstName
+		}
+	}
+`;

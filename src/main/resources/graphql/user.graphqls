@@ -4,9 +4,14 @@ type User {
 	password: String
 	role: Role
 	orders: [Order]
+	firstName: String
 }
 
 enum Role {
 	USER
 	ADMIN
+}
+
+extend type Mutation {
+	login(email: String!, password: String!): User
 }

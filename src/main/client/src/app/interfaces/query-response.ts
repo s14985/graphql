@@ -1,5 +1,6 @@
-import { Product } from './product';
-import { Order } from './order';
+import { Product } from "../models/product.model";
+import { Order } from "../models/order.model";
+import { User } from "../models/user.model";
 
 export interface QueryResponse {
 	findAllOrders: Order[];
@@ -11,4 +12,5 @@ export interface QueryResponse {
 	findAllProductsFromOrdersByProductId: Product[];
 	editProduct: Product;
 	newOrder: Order;
+	login: User;
 }

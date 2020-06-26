@@ -4,9 +4,10 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.shop.graphql.model.Order;
 import com.shop.graphql.model.Product;
 import com.shop.graphql.model.ProductOrder;
-import com.shop.graphql.service.OrderServiceImpl;
-import com.shop.graphql.service.ProductOrderServiceImpl;
-import com.shop.graphql.service.ProductServiceImpl;
+import com.shop.graphql.service.OrderService;
+import com.shop.graphql.service.ProductOrderService;
+import com.shop.graphql.service.ProductService;
+import com.shop.graphql.service.UserService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class Query implements GraphQLQueryResolver {
-	private ProductServiceImpl productService;
-	private OrderServiceImpl orderService;
-	private ProductOrderServiceImpl orderProductService;
+	private final ProductService productService;
+	private final OrderService orderService;
+	private final ProductOrderService orderProductService;
+	private final UserService userService;
 
 	public Iterable<Product> findAllProducts() {
 		return productService.getAllProducts();

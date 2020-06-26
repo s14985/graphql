@@ -1,76 +1,105 @@
 <footer class="page-footer font-small">
-  <div class="signUpContainer row">
-    <div id="footerSignUp" class="container d-flex">
-      <div class="col-md-6 col-sm-12 col-12 align-middle  align-self-center text-right">
-        <h5>Sign Up for latest news</h5>
-      </div>
-      <div class="col-md-6 col-sm-12 col-12 align-self-center">
-        <div class="input-group mb-3">
-          <input #SignUpForm type="text" class="form-control" placeholder="mail address"
-                 aria-label="Recipient's username"
-                 aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" (click)="signUp(SignUpForm.value)">Sign Up!</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="alert alert-success" *ngIf="signup">
-      <strong>Success!</strong> Thank you for signing up!
-    </div>
-    <div class="alert alert-danger" *ngIf="incorrectMail">
-      <strong>Error!</strong> Incorrect mail address!
-    </div>
-    <div class="row">
-      <div class="col-lg-5 col-md-6 col-sm-6 col-12">
-        <ul>
-          <li>
-            <p class="footerTxt"><b>EX-BAZER SHOP</b></p>
-          </li>
-          <li>
-            <p class="footerTxt">Koszykowa 86</p>
-          </li>
-          <li>
-            <p class="footerTxt">02-019 Warsaw</p>
-          </li>
-          <li>
-            <p class="footerTxt">Poland</p>
-          </li>
-          <li>
-            <a href="mailto:contact@ex-bazer.com?subject=Question&body=Please%20enter%20your%20question%20here"
-               class="footerTxt"><u>contact@ex-bazer.com</u></a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-lg-7 col-md-6 col-sm-6 col-12 my-auto">
-        <ul class="list-unstyled list-inline text-right">
-          <li class="list-inline-item">
-            <a class="btn-floating mx-2" href="https://facebook.com/">
-              <img class="footerIcon" src="../../../assets/images/facebook.svg">
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-2" href="https://twitter.com/">
-              <img class="footerIcon" src="../../../assets/images/twitter.svg">
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-2" href="https://instagram.com/">
-              <img class="footerIcon" src="../../../assets/images/instagram.svg">
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-2" href="https://youtube.com/">
-              <img class="footerIcon" src="../../../assets/images/youtube.svg">
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright text-center">© 2019 Copyright:
-    <a class="pjatkLink" href="https://www.pja.edu.pl/en/">PJATK</a>
-  </div>
+	<div class="signUpContainer row">
+		<div id="footerSignUp" class="container d-flex">
+			<div
+				class="col-md-6 col-sm-12 col-12 align-middle align-self-center text-right"
+			>
+				<h5>Sign Up for latest news</h5>
+			</div>
+			<div class="col-md-6 col-sm-12 col-12 align-self-center">
+				<div class="input-group mb-3">
+					<input
+						#SignUpForm
+						type="text"
+						class="form-control"
+						placeholder="mail address"
+						aria-label="Recipient's username"
+						aria-describedby="basic-addon2"
+					/>
+					<div class="input-group-append">
+						<button
+							class="btn btn-outline-secondary"
+							type="button"
+							(click)="signUp(SignUpForm.value)"
+						>
+							Sign Up!
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="alert alert-success" *ngIf="signup">
+			<strong>Success!</strong> Thank you for signing up!
+		</div>
+		<div class="alert alert-danger" *ngIf="incorrectMail">
+			<strong>Error!</strong> Incorrect mail address!
+		</div>
+		<div class="row">
+			<div class="col-lg-5 col-md-6 col-sm-6 col-12">
+				<ul>
+					<li>
+						<p class="footerTxt"><b>EX-BAZER SHOP</b></p>
+					</li>
+					<li>
+						<p class="footerTxt">Koszykowa 86</p>
+					</li>
+					<li>
+						<p class="footerTxt">02-019 Warsaw</p>
+					</li>
+					<li>
+						<p class="footerTxt">Poland</p>
+					</li>
+					<li>
+						<a
+							href="mailto:contact@ex-bazer.com?subject=Question&body=Please%20enter%20your%20question%20here"
+							class="footerTxt"
+							><u>contact@ex-bazer.com</u></a
+						>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-7 col-md-6 col-sm-6 col-12 my-auto">
+				<ul class="list-unstyled list-inline text-right">
+					<li class="list-inline-item">
+						<a class="btn-floating mx-2" href="https://facebook.com/">
+							<img
+								class="footerIcon"
+								src="../../../assets/images/facebook.svg"
+							/>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="btn-floating mx-2" href="https://twitter.com/">
+							<img
+								class="footerIcon"
+								src="../../../assets/images/twitter.svg"
+							/>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="btn-floating mx-2" href="https://instagram.com/">
+							<img
+								class="footerIcon"
+								src="../../../assets/images/instagram.svg"
+							/>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="btn-floating mx-2" href="https://youtube.com/">
+							<img
+								class="footerIcon"
+								src="../../../assets/images/youtube.svg"
+							/>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright text-center">
+		© 2019 Copyright:
+		<a class="pjatkLink" href="https://www.pja.edu.pl/en/">PJATK</a>
+	</div>
 </footer>

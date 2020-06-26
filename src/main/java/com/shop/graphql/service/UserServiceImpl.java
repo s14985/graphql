@@ -7,6 +7,8 @@ import com.shop.graphql.repository.UserRepository;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,17 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
-	// TODO security
 	private String getCurrentUserLogin() {
-		//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//        String username = "";
-		//        if (principal instanceof UserDetails) {
-		//            username = ((UserDetails) principal).getUsername();
-		//        } else {
-		//            username = principal.toString();
-		//        }
-		//        return username;
-		return "a.poziomka@gmail.com";
+		Object principal = SecurityContextHolder
+			.getContext()
+			.getAuthentication()
+			.getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
 	}
 
 	@Override

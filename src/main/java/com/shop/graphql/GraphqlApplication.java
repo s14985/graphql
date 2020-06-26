@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -25,12 +26,18 @@ public class GraphqlApplication {
 		ProductRepository productRepository,
 		OrderRepository orderRepository,
 		ProductOrderRepository productOrderRepository,
-		UserRepository userRepository
+		UserRepository userRepository,
+		PasswordEncoder passwordEncoder
 	) {
 		return args -> {
-			User user1 = new User("a.poziomka@gmail.com", "pass", Role.USER);
-			User user2 = new User("b.poziomka@gmail.com", "pass", Role.USER);
-			User user3 = new User("c.poziomka@gmail.com", "pass", Role.USER);
+			User user1 = new User(
+				"Anna",
+				"a.poziomka@gmail.com",
+				passwordEncoder.encode("pass"),
+				Role.USER
+			);
+			User user2 = new User("Beta", "b.poziomka@gmail.com", "pass", Role.USER);
+			User user3 = new User("Cena", "c.poziomka@gmail.com", "pass", Role.USER);
 
 			Order order1 = new Order(Status.CREATED);
 			Order order2 = new Order(Status.CREATED);

@@ -1,8 +1,12 @@
 <li class="nav-item">
-  <div (mouseover)="colorSwitcher = true" (mouseleave)="colorSwitcher = false">
-    <a routerLink="{{routeName}}" routerLinkActive="{{active}}" class="nav-link"
-       [ngStyle]="{color: colorSwitcher==true  ? '#FF7A00' : 'black'}">{{linkName}}
-      <span class="sr-only">{{linkName}}</span>
-    </a>
-  </div>
+	<div (mouseover)="colorSwitcher = true" (mouseleave)="colorSwitcher = false">
+		<a
+			routerLink="{{ routeName }}"
+			routerLinkActive="{{ active }}"
+			class="nav-link"
+			[ngStyle]="{ color: colorSwitcher == true ? '#FF7A00' : 'black' }"
+			>{{ linkName }}
+			<span class="sr-only">{{ linkName }}</span>
+		</a>
+	</div>
 </li>

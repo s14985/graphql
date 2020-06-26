@@ -1,4 +1,3 @@
-import { ProductOrders } from './product-orders.model';
 import { Product } from './product.model';
 
 export class ProductOrder {
