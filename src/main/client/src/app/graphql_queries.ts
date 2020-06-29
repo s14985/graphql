@@ -163,3 +163,28 @@ export const login = gql`
 		}
 	}
 `;
+
+export const getProductDetails = gql`
+  query($id: ID!) {
+    findProductById(id: $id) {
+      id
+      name
+      price
+      picture
+      details
+    },
+    findAllProductsFromOrdersByProductId(id: $id) {
+      order {
+        productOrders {
+          product {
+            id
+            name
+            price
+            picture
+            details
+          }
+        }
+      }
+    }
+  }
+`;

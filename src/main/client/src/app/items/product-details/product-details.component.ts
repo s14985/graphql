@@ -5,8 +5,6 @@ import { ItemsDialogComponent } from '../items-dialog/items-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductOrder } from '../../models/product-order.model';
 import { Subscription } from 'rxjs';
-import { AuthenticationService } from '../../services/authentication.service';
-import { User } from '../../models/user.model';
 import { Product } from "../../models/product.model";
 
 @Component({
@@ -22,53 +20,39 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 	selectedProductOrder: ProductOrder;
 	deleteError: boolean;
 	suggestedItems: any[] = [];
-	currentUser: User;
 
 	constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private ecommerceService: EcommerceService,
-		private dialog: MatDialog,
-		private authenticationService: AuthenticationService
+		private dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
 		this.subProduct = this.activatedRoute.params.subscribe((params) => {
-			this.loadProduct(+params['id']);
-			this.currentUser = this.authenticationService.getCurrentUser();
-			this.currentUser
-				? this.getSuggestedProducts(+params['id'])
-				: this.getRandomProducts();
+      this.getProductDetails(+params['id']);
 		});
 
 		this.subProductChange = this.ecommerceService.ProductChanged$.subscribe(
 			() => {
-				this.loadProduct(this.ecommerceService.Product.id);
+				this.getProductDetails(this.ecommerceService.Product.id);
 			}
 		);
 	}
 
-	private getSuggestedProducts(id: number) {
-		this.ecommerceService
-			.findAllProductsFromOrdersByProductId(id)
-			.subscribe((result) => {
-				this.suggestedItems = this.getSuggestedItems(
-					this.getConcatProductOrders(
-						result.findAllProductsFromOrdersByProductId
-					),
-					JSON.stringify,
-					id
-				).sort(() => 0.5 - Math.random());
-			});
-	}
-
-	private getRandomProducts() {
-		this.ecommerceService.findAllProducts().subscribe((result) => {
-			this.suggestedItems = result.findAllProducts.sort(
-				() => 0.5 - Math.random()
-			);
-		});
-	}
+  private getProductDetails(id: number) {
+    this.ecommerceService.getProductDetails(id).subscribe((result) => {
+      console.log(result)
+      this.item = result.findProductById;
+      this.suggestedItems = this.getSuggestedItems(
+        this.getConcatProductOrders(
+          result.findAllProductsFromOrdersByProductId
+        ),
+        JSON.stringify,
+        id
+      ).sort(() => 0.5 - Math.random());
+    });
+  }
 
 	private getSuggestedItems(a, key, id) {
 		const seen = {};
@@ -80,11 +64,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 				? false
 				: (seen[k] = true);
 		});
-	}
-	private loadProduct(id: number) {
-		this.ecommerceService
-			.findProductById(id)
-			.subscribe((result) => (this.item = result.findProductById));
 	}
 
 	ngOnDestroy(): void {

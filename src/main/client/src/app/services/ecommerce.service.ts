@@ -12,6 +12,7 @@ import {
 	findAllProductsFromOrdersByProductId,
 	editProduct,
 	newOrder,
+  getProductDetails
 } from '../graphql_queries';
 import { QueryResponse } from '../interfaces/query-response';
 import { Product } from '../models/product.model';
@@ -178,4 +179,13 @@ export class EcommerceService {
 			})
 			.pipe(map((result) => result.data));
 	}
+
+  getProductDetails(id: number): Observable<QueryResponse> {
+    return this.apollo
+      .watchQuery<QueryResponse>({
+        query: getProductDetails,
+        variables: { id: id },
+      })
+      .valueChanges.pipe(map((result) => result.data));
+  }
 }

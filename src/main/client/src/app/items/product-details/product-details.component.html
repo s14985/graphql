@@ -58,7 +58,7 @@
 	<div class="row card-group">
 		<div *ngFor="let item of suggestedItems.slice(0, 3)" class="col-4">
 			<app-suggested-product
-				[item]="currentUser ? item.product : item"
+				[item]="item.product"
 			></app-suggested-product>
 		</div>
 	</div>
