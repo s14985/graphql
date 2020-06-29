@@ -11,16 +11,17 @@ import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-orders',
-	templateUrl: './orders.component.html',
-	styleUrls: ['./orders.component.scss'],
+	templateUrl: './order.component.html',
+	styleUrls: ['./order.component.scss'],
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class OrderComponent implements OnInit, OnDestroy {
 	private subProductOrders: Subscription;
 	orders: ProductOrders;
 	order: any;
 	total: number;
 	paid: boolean;
 	hide: boolean;
+	finished: boolean;
 
 	@Output() onOrderCanceled: EventEmitter<boolean>;
 	@Output() onOrderFinished: EventEmitter<any>;
@@ -58,8 +59,21 @@ export class OrdersComponent implements OnInit, OnDestroy {
 		this.onOrderCanceled.emit(this.hide);
 	}
 
-	finish() {
+	end() {
 		this.onOrderFinished.emit();
+	}
+
+	finish() {
+		this.paid = false;
+		this.finished = true;
+		this.ecommerceService.finishOrder(this.order.id).subscribe(
+			(result) => {
+				this.order = result.finishOrder;
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
 	}
 
 	ngOnDestroy(): void {

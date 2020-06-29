@@ -1,7 +1,6 @@
 package com.shop.graphql.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.OffsetDateTime;
 import java.util.List;
 import javax.persistence.*;
@@ -9,8 +8,8 @@ import lombok.*;
 
 @Data
 @Entity
-@ToString(exclude = { "productOrders", "user" })
-@EqualsAndHashCode(exclude = { "productOrders", "user" })
+@ToString(exclude = { "productOrders" })
+@EqualsAndHashCode(exclude = { "productOrders" })
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
@@ -24,26 +23,11 @@ public class Order {
 
 	private Status status;
 
-	@JsonIgnore
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private User user;
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	private List<ProductOrder> productOrders;
 
 	public Order(Status status) {
 		this.status = status;
 		this.dateCreated = OffsetDateTime.now();
-	}
-
-	//	@Transient
-	//	public Double getTotalOrderPrice() {
-	//		List<OrderProduct> orderProducts = getOrderProducts();
-	//		return orderProducts.stream().map(OrderProduct::getTotalPrice).reduce(Double::sum).get();
-	//	}
-
-	@Transient
-	public int getNumberOfProducts() {
-		return this.productOrders.size();
 	}
 }

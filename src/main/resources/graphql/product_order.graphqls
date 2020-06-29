@@ -17,7 +17,5 @@ input EditProductOrderInput {
 }
 
 extend type Query {
-	findAllProductOrders: [ProductOrder]!
 	findAllProductsFromOrdersByProductId(id: ID!): [ProductOrder]!
-	findProductsFromOrdersByProductId(id: ID!): [Product]!
 }

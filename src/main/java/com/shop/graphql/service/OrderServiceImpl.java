@@ -2,10 +2,8 @@ package com.shop.graphql.service;
 
 import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Order;
-import com.shop.graphql.model.User;
 import com.shop.graphql.repository.OrderRepository;
 import java.time.OffsetDateTime;
-import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,11 +34,6 @@ public class OrderServiceImpl implements OrderService {
 		@NotNull(message = "The order cannot be null.") @Valid Order order
 	) {
 		return orderRepository.save(order);
-	}
-
-	@Override
-	public List<Order> getUserOrders(User user) {
-		return orderRepository.findAllByUser(user.getId());
 	}
 
 	@Override

@@ -1,21 +1,5 @@
 import gql from 'graphql-tag';
 
-export const findAllOrders = gql`
-	query {
-		findAllOrders {
-			id
-			status
-			dateCreated
-			productOrders {
-				id
-			}
-			user {
-				id
-			}
-		}
-	}
-`;
-
 export const findAllProducts = gql`
 	query {
 		findAllProducts {
@@ -23,48 +7,6 @@ export const findAllProducts = gql`
 			name
 			price
 			picture
-		}
-	}
-`;
-
-export const findAllProductOrders = gql`
-	query {
-		findAllProductOrders {
-			id
-			order {
-				id
-				user {
-					id
-				}
-			}
-			product {
-				id
-				name
-			}
-		}
-	}
-`;
-
-export const findProductById = gql`
-	query($id: ID!) {
-		findProductById(id: $id) {
-			id
-			name
-			price
-			picture
-			details
-		}
-	}
-`;
-
-export const findProductsFromOrdersByProductId = gql`
-	query($id: ID!) {
-		findProductsFromOrdersByProductId(id: $id) {
-			id
-			name
-			price
-			picture
-			details
 		}
 	}
 `;
@@ -94,24 +36,6 @@ export const newProduct = gql`
 export const deleteProduct = gql`
 	mutation($id: ID!) {
 		deleteProduct(id: $id)
-	}
-`;
-
-export const findAllProductsFromOrdersByProductId = gql`
-	query($id: ID!) {
-		findAllProductsFromOrdersByProductId(id: $id) {
-			order {
-				productOrders {
-					product {
-						id
-						name
-						price
-						picture
-						details
-					}
-				}
-			}
-		}
 	}
 `;
 
@@ -148,43 +72,40 @@ export const newOrder = gql`
 			productOrders {
 				id
 			}
-			user {
-				id
-			}
-		}
-	}
-`;
-
-export const login = gql`
-	mutation($email: String!, $password: String!) {
-		login(email: $email, password: $password) {
-			id
-			firstName
 		}
 	}
 `;
 
 export const getProductDetails = gql`
-  query($id: ID!) {
-    findProductById(id: $id) {
-      id
-      name
-      price
-      picture
-      details
-    },
-    findAllProductsFromOrdersByProductId(id: $id) {
-      order {
-        productOrders {
-          product {
-            id
-            name
-            price
-            picture
-            details
-          }
-        }
-      }
-    }
-  }
+	query($id: ID!) {
+		findProductById(id: $id) {
+			id
+			name
+			price
+			picture
+			details
+		}
+		findAllProductsFromOrdersByProductId(id: $id) {
+			order {
+				productOrders {
+					product {
+						id
+						name
+						price
+						picture
+						details
+					}
+				}
+			}
+		}
+	}
+`;
+
+export const finishOrder = gql`
+	mutation($id: ID!) {
+		finishOrder(id: $id) {
+			id
+			status
+		}
+	}
 `;

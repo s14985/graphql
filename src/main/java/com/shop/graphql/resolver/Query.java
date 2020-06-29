@@ -7,7 +7,6 @@ import com.shop.graphql.model.ProductOrder;
 import com.shop.graphql.service.OrderService;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.ProductService;
-import com.shop.graphql.service.UserService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ public class Query implements GraphQLQueryResolver {
 	private final ProductService productService;
 	private final OrderService orderService;
 	private final ProductOrderService orderProductService;
-	private final UserService userService;
 
 	public Iterable<Product> findAllProducts() {
 		return productService.getAllProducts();
@@ -28,18 +26,10 @@ public class Query implements GraphQLQueryResolver {
 		return orderService.getAllOrders();
 	}
 
-	public Iterable<ProductOrder> findAllProductOrders() {
-		return orderProductService.getAllProductOrders();
-	}
-
 	public List<ProductOrder> findAllProductsFromOrdersByProductId(
 		Long productId
 	) {
 		return orderProductService.getAllByProductId(productId);
-	}
-
-	public Iterable<Product> findProductsFromOrdersByProductId(Long productId) {
-		return productService.findProductsFromOrdersByProductId(productId);
 	}
 
 	public Product findProductById(Long id) {

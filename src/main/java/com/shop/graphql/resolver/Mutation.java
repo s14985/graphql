@@ -3,34 +3,28 @@ package com.shop.graphql.resolver;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.shop.graphql.dto.input.EditProductOrderInput;
 import com.shop.graphql.dto.input.NewProductOrderInput;
-import com.shop.graphql.dto.input.OrderInput;
-import com.shop.graphql.model.*;
-import com.shop.graphql.service.*;
-import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
+import com.shop.graphql.model.Order;
+import com.shop.graphql.model.Product;
+import com.shop.graphql.model.ProductOrder;
+import com.shop.graphql.model.Status;
+import com.shop.graphql.service.OrderService;
+import com.shop.graphql.service.ProductOrderService;
+import com.shop.graphql.service.ProductService;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class Mutation implements GraphQLMutationResolver {
-	private final UserService userService;
 	private final OrderService orderService;
 	private final ProductOrderService productOrderService;
 	private final ProductService productService;
-	private final DomainUserDetailsService userDetailsService;
-	private final AuthenticationManager authenticationManager;
 
 	public Order newOrder(List<NewProductOrderInput> newProductOrderInputs) {
 		Order order = new Order(Status.CREATED);
-		order.setUser(userService.getCurrentUser());
 		order = orderService.create(order);
 
 		Order finalOrder = order;
@@ -81,6 +75,12 @@ public class Mutation implements GraphQLMutationResolver {
 		return orderService.update(order);
 	}
 
+	public Order finishOrder(Long id) {
+		Order order = orderService.getOrderById(id);
+		order.setStatus(Status.FINISHED);
+		return orderService.update(order);
+	}
+
 	public Product newProduct(
 		String name,
 		BigDecimal price,
@@ -109,53 +109,5 @@ public class Mutation implements GraphQLMutationResolver {
 		productOrderService.deleteAll(productOrderService.getAllByProductId(id));
 		productService.delete(id);
 		return true;
-	}
-
-	public User newUser(
-		String firstName,
-		String email,
-		String password,
-		Role role
-	) {
-		return userService.save(new User(firstName, email, password, role));
-	}
-
-	public User editUser(
-		Long id,
-		String firstName,
-		String email,
-		String password,
-		List<OrderInput> orderInputs
-	) {
-		User user = userService.getUserById(id);
-		user.setFirstName(firstName);
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setOrders(
-			orderInputs
-				.stream()
-				.map(orderInput -> orderService.getOrderById(orderInput.getId()))
-				.collect(Collectors.toList())
-		);
-		return userService.save(user);
-	}
-
-	public User login(String email, String password) {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-			userDetails,
-			password,
-			userDetails.getAuthorities()
-		);
-		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-
-		if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-			SecurityContextHolder
-				.getContext()
-				.setAuthentication(usernamePasswordAuthenticationToken);
-			return userService.getCurrentUser();
-		} else {
-			throw new BadCredentialsException(email);
-		}
 	}
 }

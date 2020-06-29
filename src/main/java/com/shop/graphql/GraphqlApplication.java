@@ -1,18 +1,18 @@
 package com.shop.graphql;
 
-import com.shop.graphql.model.*;
+import com.shop.graphql.model.Order;
+import com.shop.graphql.model.Product;
+import com.shop.graphql.model.ProductOrder;
+import com.shop.graphql.model.Status;
 import com.shop.graphql.repository.OrderRepository;
 import com.shop.graphql.repository.ProductOrderRepository;
 import com.shop.graphql.repository.ProductRepository;
-import com.shop.graphql.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 @SpringBootApplication
 public class GraphqlApplication {
@@ -25,20 +25,9 @@ public class GraphqlApplication {
 	public CommandLineRunner runner(
 		ProductRepository productRepository,
 		OrderRepository orderRepository,
-		ProductOrderRepository productOrderRepository,
-		UserRepository userRepository,
-		PasswordEncoder passwordEncoder
+		ProductOrderRepository productOrderRepository
 	) {
 		return args -> {
-			User user1 = new User(
-				"Anna",
-				"a.poziomka@gmail.com",
-				passwordEncoder.encode("pass"),
-				Role.USER
-			);
-			User user2 = new User("Beta", "b.poziomka@gmail.com", "pass", Role.USER);
-			User user3 = new User("Cena", "c.poziomka@gmail.com", "pass", Role.USER);
-
 			Order order1 = new Order(Status.CREATED);
 			Order order2 = new Order(Status.CREATED);
 			Order order3 = new Order(Status.CREATED);
@@ -86,19 +75,6 @@ public class GraphqlApplication {
 				pic + "car",
 				lorem
 			);
-
-			order1.setUser(user1);
-			order2.setUser(user2);
-			order3.setUser(user3);
-			order4.setUser(user1);
-			order5.setUser(user2);
-			order6.setUser(user3);
-
-			user1.setOrders(Arrays.asList(order1, order4));
-			user2.setOrders(Arrays.asList(order2, order5));
-			user3.setOrders(Arrays.asList(order3, order6));
-
-			userRepository.saveAll(Arrays.asList(user1, user2, user3));
 
 			order1 = orderRepository.save(order1);
 			order2 = orderRepository.save(order2);

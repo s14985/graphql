@@ -5,7 +5,7 @@ import { ItemsDialogComponent } from '../items-dialog/items-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductOrder } from '../../models/product-order.model';
 import { Subscription } from 'rxjs';
-import { Product } from "../../models/product.model";
+import { Product } from '../../models/product.model';
 
 @Component({
 	selector: 'app-product-details',
@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.subProduct = this.activatedRoute.params.subscribe((params) => {
-      this.getProductDetails(+params['id']);
+			this.getProductDetails(+params['id']);
 		});
 
 		this.subProductChange = this.ecommerceService.ProductChanged$.subscribe(
@@ -40,19 +40,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 		);
 	}
 
-  private getProductDetails(id: number) {
-    this.ecommerceService.getProductDetails(id).subscribe((result) => {
-      console.log(result)
-      this.item = result.findProductById;
-      this.suggestedItems = this.getSuggestedItems(
-        this.getConcatProductOrders(
-          result.findAllProductsFromOrdersByProductId
-        ),
-        JSON.stringify,
-        id
-      ).sort(() => 0.5 - Math.random());
-    });
-  }
+	private getProductDetails(id: number) {
+		this.ecommerceService.getProductDetails(id).subscribe((result) => {
+			this.item = result.findProductById;
+			this.suggestedItems = this.getSuggestedItems(
+				this.getConcatProductOrders(
+					result.findAllProductsFromOrdersByProductId
+				),
+				JSON.stringify,
+				id
+			).sort(() => 0.5 - Math.random());
+		});
+	}
 
 	private getSuggestedItems(a, key, id) {
 		const seen = {};

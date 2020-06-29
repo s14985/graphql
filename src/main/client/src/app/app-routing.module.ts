@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GraphQLModule } from './graphql.module';
-import { OrdersComponent } from './items/orders/orders.component';
+import { OrderComponent } from './items/order/order.component';
 import { HomeComponent } from './home/home.component';
 import { ItemsComponent } from './items/items.component';
 import { ProductDetailsComponent } from './items/product-details/product-details.component';
 import { ProductsListComponent } from './items/products-list/products-list.component';
 import { ErrorComponent } from './shared/error/error.component';
-import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 	{
@@ -21,7 +20,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'orders',
-		component: OrdersComponent,
+		component: OrderComponent,
 	},
 	{
 		path: 'items',
@@ -36,10 +35,6 @@ const routes: Routes = [
 				component: ProductDetailsComponent,
 			},
 		],
-	},
-	{
-		path: 'login',
-		component: LoginComponent,
 	},
 	{
 		path: '**',

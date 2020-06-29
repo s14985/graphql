@@ -3,16 +3,13 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import {
-	findAllOrders,
-	findProductById,
 	findAllProducts,
-	findProductsFromOrdersByProductId,
 	newProduct,
 	deleteProduct,
-	findAllProductsFromOrdersByProductId,
 	editProduct,
 	newOrder,
-  getProductDetails
+	getProductDetails,
+	finishOrder,
 } from '../graphql_queries';
 import { QueryResponse } from '../interfaces/query-response';
 import { Product } from '../models/product.model';
@@ -77,33 +74,9 @@ export class EcommerceService {
 		this._totalSubject.next();
 	}
 
-	findAllOrders(): Observable<QueryResponse> {
-		return this.apollo
-			.watchQuery<QueryResponse>({ query: findAllOrders })
-			.valueChanges.pipe(map((result) => result.data));
-	}
-
-	findProductById(id: number): Observable<QueryResponse> {
-		return this.apollo
-			.watchQuery<QueryResponse>({
-				query: findProductById,
-				variables: { id: id },
-			})
-			.valueChanges.pipe(map((result) => result.data));
-	}
-
 	findAllProducts(): Observable<QueryResponse> {
 		return this.apollo
 			.watchQuery<QueryResponse>({ query: findAllProducts })
-			.valueChanges.pipe(map((result) => result.data));
-	}
-
-	findProductsFromOrdersByProductId(id: number): Observable<QueryResponse> {
-		return this.apollo
-			.watchQuery<QueryResponse>({
-				query: findProductsFromOrdersByProductId,
-				variables: { id: id },
-			})
 			.valueChanges.pipe(map((result) => result.data));
 	}
 
@@ -135,15 +108,6 @@ export class EcommerceService {
 				},
 			})
 			.pipe(map((result) => result.data));
-	}
-
-	findAllProductsFromOrdersByProductId(id: number): Observable<QueryResponse> {
-		return this.apollo
-			.watchQuery<QueryResponse>({
-				query: findAllProductsFromOrdersByProductId,
-				variables: { id: id },
-			})
-			.valueChanges.pipe(map((result) => result.data));
 	}
 
 	editProduct(
@@ -180,12 +144,21 @@ export class EcommerceService {
 			.pipe(map((result) => result.data));
 	}
 
-  getProductDetails(id: number): Observable<QueryResponse> {
-    return this.apollo
-      .watchQuery<QueryResponse>({
-        query: getProductDetails,
-        variables: { id: id },
-      })
-      .valueChanges.pipe(map((result) => result.data));
-  }
+	getProductDetails(id: number): Observable<QueryResponse> {
+		return this.apollo
+			.watchQuery<QueryResponse>({
+				query: getProductDetails,
+				variables: { id: id },
+			})
+			.valueChanges.pipe(map((result) => result.data));
+	}
+
+	finishOrder(id: number): Observable<QueryResponse> {
+		return this.apollo
+			.mutate<QueryResponse>({
+				mutation: finishOrder,
+				variables: { id: id },
+			})
+			.pipe(map((result) => result.data));
+	}
 }

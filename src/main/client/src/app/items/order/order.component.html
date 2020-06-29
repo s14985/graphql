@@ -11,14 +11,14 @@
 		<button
 			class="col-3 offset-2 btn btn-primary"
 			(click)="pay()"
-			*ngIf="!paid"
+			*ngIf="!paid && !finished"
 		>
 			Pay
 		</button>
 		<button
 			class="backBtn col-3 offset-2 btn btn-primary"
 			(click)="back()"
-			*ngIf="!paid"
+			*ngIf="!paid && !finished"
 		>
 			Cancel
 		</button>
@@ -30,6 +30,16 @@
 		<div>
 			<button class="finishBtn btn btn-primary" (click)="finish()">
 				Finish
+			</button>
+		</div>
+	</div>
+	<div class="alert alert-success" role="alert" *ngIf="finished">
+		<strong>Congratulation!</strong> Order finished.
+		<p>Id: {{ order.id }}</p>
+		<p>Status: {{ order.status }}</p>
+		<div>
+			<button class="finishBtn btn btn-primary" (click)="end()">
+				Back
 			</button>
 		</div>
 	</div>

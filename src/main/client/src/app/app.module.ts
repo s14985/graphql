@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OrdersComponent } from './items/orders/orders.component';
+import { OrderComponent } from './items/order/order.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,13 +25,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EcommerceService } from './services/ecommerce.service';
 import { SuggestedProductComponent } from './items/product-details/suggested-product/suggested-product.component';
-import { LoginComponent } from './login/login.component';
-import { AuthenticationService } from "./services/authentication.service";
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		OrdersComponent,
+		OrderComponent,
 		HomeComponent,
 		NavbarComponent,
 		FooterComponent,
@@ -43,7 +41,6 @@ import { AuthenticationService } from "./services/authentication.service";
 		ShoppingCartComponent,
 		ItemsDialogComponent,
 		SuggestedProductComponent,
-		LoginComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -59,7 +56,7 @@ import { AuthenticationService } from "./services/authentication.service";
 		MatInputModule,
 		FormsModule,
 	],
-	providers: [EcommerceService, AuthenticationService],
+	providers: [EcommerceService],
 	bootstrap: [AppComponent],
 	entryComponents: [ItemsDialogComponent],
 })

@@ -7,14 +7,6 @@ type Product {
 	productOrders: [ProductOrder]
 }
 
-input ProductInput {
-	id: ID
-	name: String!
-	price: Float!
-	picture: String
-	details: String
-}
-
 type Mutation {
 	newProduct(
 		name: String!

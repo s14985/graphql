@@ -5,12 +5,6 @@ type Order {
 	status: Status
 	dateCreated: DateTime
 	productOrders: [ProductOrder]
-	user: User
-}
-
-input OrderInput {
-	id: ID
-	status: Status
 }
 
 enum Status {
@@ -21,6 +15,7 @@ enum Status {
 extend type Mutation {
 	newOrder(productOrders: [NewProductOrderInput!]!): Order
 	editOrder(id: ID!, productOrders: [EditProductOrderInput]!): Order
+	finishOrder(id: ID!): Order
 }
 
 extend type Query {
