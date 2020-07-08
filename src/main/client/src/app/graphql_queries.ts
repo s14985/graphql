@@ -17,18 +17,30 @@ export const newProduct = gql`
 		$price: Float!
 		$picture: String!
 		$details: String!
+		$manufacturer: String!
+		$itemCode: String!
+		$color: String!
+		$material: String!
 	) {
 		newProduct(
 			name: $name
 			price: $price
 			picture: $picture
 			details: $details
+			manufacturer: $manufacturer
+			itemCode: $itemCode
+			color: $color
+			material: $material
 		) {
 			id
 			name
 			price
 			picture
 			details
+			manufacturer
+			itemCode
+			color
+			material
 		}
 	}
 `;
@@ -46,6 +58,10 @@ export const editProduct = gql`
 		$price: Float!
 		$picture: String!
 		$details: String!
+		$manufacturer: String!
+		$itemCode: String!
+		$color: String!
+		$material: String!
 	) {
 		editProduct(
 			id: $id
@@ -53,12 +69,20 @@ export const editProduct = gql`
 			price: $price
 			picture: $picture
 			details: $details
+			manufacturer: $manufacturer
+			itemCode: $itemCode
+			color: $color
+			material: $material
 		) {
 			id
 			name
 			price
 			picture
 			details
+			manufacturer
+			itemCode
+			color
+			material
 		}
 	}
 `;
@@ -84,6 +108,10 @@ export const getProductDetails = gql`
 			price
 			picture
 			details
+			manufacturer
+			itemCode
+			color
+			material
 		}
 		findAllProductsFromOrdersByProductId(id: $id) {
 			order {

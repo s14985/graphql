@@ -85,9 +85,24 @@ public class Mutation implements GraphQLMutationResolver {
 		String name,
 		BigDecimal price,
 		String picture,
-		String details
+		String details,
+		String manufacturer,
+		String itemCode,
+		String color,
+		String material
 	) {
-		return productService.save(new Product(name, price, picture, details));
+		return productService.save(
+			new Product(
+				name,
+				price,
+				picture,
+				details,
+				manufacturer,
+				itemCode,
+				color,
+				material
+			)
+		);
 	}
 
 	public Product editProduct(
@@ -95,13 +110,21 @@ public class Mutation implements GraphQLMutationResolver {
 		String name,
 		BigDecimal price,
 		String picture,
-		String details
+		String details,
+		String manufacturer,
+		String itemCode,
+		String color,
+		String material
 	) {
 		Product product = productService.getProductById(id);
 		product.setName(name);
 		product.setPrice(price);
 		product.setPicture(picture);
 		product.setDetails(details);
+		product.setManufacturer(manufacturer);
+		product.setItemCode(itemCode);
+		product.setColor(color);
+		product.setMaterial(material);
 		return productService.save(product);
 	}
 

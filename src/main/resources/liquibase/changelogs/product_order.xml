@@ -6,7 +6,7 @@
 
     <changeSet  author="s14985"  id="0">
         <createTable  tableName="product_order">
-            <column  name="id"  type="bigint"/>
+            <column  name="id"  type="bigint" autoIncrement="true"/>
             <column  name="quantity"  type="int"/>
             <column  name="order_id"  type="bigint"/>
             <column  name="product_id"  type="bigint"/>

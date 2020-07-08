@@ -84,7 +84,11 @@ export class EcommerceService {
 		name: string,
 		price: number,
 		picture: string,
-		details: string
+		details: string,
+		manufacturer: string,
+		itemCode: string,
+		color: string,
+		material: string
 	): Observable<QueryResponse> {
 		return this.apollo
 			.mutate<QueryResponse>({
@@ -94,6 +98,10 @@ export class EcommerceService {
 					price: price,
 					picture: picture,
 					details: details,
+					manufacturer: manufacturer,
+					itemCode: itemCode,
+					color: color,
+					material: material,
 				},
 			})
 			.pipe(map((result) => result.data));
@@ -115,7 +123,11 @@ export class EcommerceService {
 		name: string,
 		price: number,
 		picture: string,
-		details: string
+		details: string,
+		manufacturer: string,
+		itemCode: string,
+		color: string,
+		material: string
 	): Observable<QueryResponse> {
 		return this.apollo
 			.mutate<QueryResponse>({
@@ -126,6 +138,10 @@ export class EcommerceService {
 					price: price,
 					picture: picture,
 					details: details,
+					manufacturer: manufacturer,
+					itemCode: itemCode,
+					color: color,
+					material: material,
 				},
 			})
 			.pipe(map((result) => result.data));

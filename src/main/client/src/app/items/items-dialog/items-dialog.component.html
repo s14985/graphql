@@ -29,6 +29,52 @@
 					Field required.
 				</mat-error>
 			</mat-form-field>
+			<mat-form-field class="col-6">
+				<input
+					type="text"
+					matInput
+					placeholder="manufacturer"
+					formControlName="manufacturer"
+				/>
+				<mat-error
+					*ngIf="addForm.controls['manufacturer'].hasError('required')"
+				>
+					Field required.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="col-6">
+				<input
+					type="text"
+					matInput
+					placeholder="itemCode"
+					formControlName="itemCode"
+				/>
+				<mat-error *ngIf="addForm.controls['itemCode'].hasError('required')">
+					Field required.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="col-6">
+				<input
+					type="text"
+					matInput
+					placeholder="color"
+					formControlName="color"
+				/>
+				<mat-error *ngIf="addForm.controls['color'].hasError('required')">
+					Field required.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="col-6">
+				<input
+					type="text"
+					matInput
+					placeholder="material"
+					formControlName="material"
+				/>
+				<mat-error *ngIf="addForm.controls['material'].hasError('required')">
+					Field required.
+				</mat-error>
+			</mat-form-field>
 			<mat-form-field class="col-12">
 				<input
 					type="text"

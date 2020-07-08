@@ -29,12 +29,29 @@ export class ItemsDialogComponent implements OnInit {
 		details: new FormControl(this.data === null ? '' : this.data.details, [
 			Validators.required,
 		]),
+		manufacturer: new FormControl(
+			this.data === null ? '' : this.data.manufacturer,
+			[Validators.required]
+		),
+		itemCode: new FormControl(this.data === null ? '' : this.data.itemCode, [
+			Validators.required,
+		]),
+		color: new FormControl(this.data === null ? '' : this.data.color, [
+			Validators.required,
+		]),
+		material: new FormControl(this.data === null ? '' : this.data.material, [
+			Validators.required,
+		]),
 	});
 
 	name = this.addForm.controls['name'];
 	price = this.addForm.controls['price'];
 	picture = this.addForm.controls['pictureUrl'];
 	details = this.addForm.controls['details'];
+	manufacturer = this.addForm.controls['manufacturer'];
+	itemCode = this.addForm.controls['itemCode'];
+	color = this.addForm.controls['color'];
+	material = this.addForm.controls['material'];
 
 	constructor(
 		private ecommerceService: EcommerceService,
@@ -56,16 +73,15 @@ export class ItemsDialogComponent implements OnInit {
 				this.name.value,
 				this.price.value,
 				this.picture.value,
-				this.details.value
+				this.details.value,
+				this.manufacturer.value,
+				this.itemCode.value,
+				this.color.value,
+				this.material.value
 			)
 			.subscribe(
 				(result) => {
-					if (
-						!this.name.errors &&
-						!this.price.errors &&
-						!this.picture.errors &&
-						!this.details.errors
-					) {
+					if (this.ifNoFieldErrors()) {
 						this.dialog.close(result.editProduct);
 					}
 				},
@@ -81,16 +97,15 @@ export class ItemsDialogComponent implements OnInit {
 				this.name.value,
 				this.price.value,
 				this.picture.value,
-				this.details.value
+				this.details.value,
+				this.manufacturer.value,
+				this.itemCode.value,
+				this.color.value,
+				this.material.value
 			)
 			.subscribe(
 				(result) => {
-					if (
-						!this.name.errors &&
-						!this.price.errors &&
-						!this.picture.errors &&
-						!this.details.errors
-					) {
+					if (this.ifNoFieldErrors()) {
 						this.dialog.close(result.newProduct);
 					}
 				},
@@ -98,5 +113,18 @@ export class ItemsDialogComponent implements OnInit {
 					this.saveErrorMsg = true;
 				}
 			);
+	}
+
+	private ifNoFieldErrors() {
+		return (
+			!this.name.errors &&
+			!this.price.errors &&
+			!this.picture.errors &&
+			!this.details.errors &&
+			!this.manufacturer.errors &&
+			!this.itemCode.errors &&
+			!this.color.errors &&
+			!this.material.errors
+		);
 	}
 }

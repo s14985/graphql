@@ -4,6 +4,10 @@ type Product {
 	price: Float!
 	picture: String
 	details: String
+	manufacturer: String
+	itemCode: String
+	color: String
+	material: String
 	productOrders: [ProductOrder]
 }
 
@@ -13,6 +17,10 @@ type Mutation {
 		price: Float!
 		picture: String!
 		details: String!
+		manufacturer: String!
+		itemCode: String!
+		color: String!
+		material: String!
 	): Product
 	editProduct(
 		id: ID!
@@ -20,6 +28,10 @@ type Mutation {
 		price: Float!
 		picture: String!
 		details: String!
+		manufacturer: String!
+		itemCode: String!
+		color: String!
+		material: String!
 	): Product
 	deleteProduct(id: ID!): Boolean
 }
