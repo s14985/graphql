@@ -1,9 +1,15 @@
 package com.shop.graphql.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.persistence.*;
-import lombok.*;
 
 @Data
 @Entity
@@ -31,6 +37,8 @@ public class Product {
 
 	private String material;
 
+	@JsonIgnore
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	private List<ProductOrder> productOrders;
 

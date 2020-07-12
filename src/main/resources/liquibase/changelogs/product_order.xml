@@ -4,22 +4,44 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet  author="s14985"  id="0">
-        <createTable  tableName="product_order">
-            <column  name="id"  type="bigint" autoIncrement="true"/>
-            <column  name="quantity"  type="int"/>
-            <column  name="order_id"  type="bigint"/>
-            <column  name="product_id"  type="bigint"/>
-        </createTable>
+    <changeSet id="0" author="s14985">
+        <sql  dbms="h2">
+            CREATE TABLE PRODUCT_ORDER AS SELECT * FROM CSVREAD('src\main\resources\liquibase\csv\product_orders.csv');
+        </sql>
     </changeSet>
 
-    <changeSet  author="s14985"  id="1">
-        <loadData  file="liquibase/csv/product_orders.csv"
-                   quotchar="'"
-                   schemaName="public"
-                   separator=","
-                   tableName="product_order">
-        </loadData>
+    <changeSet id="1" author="s14985">
+        <modifyDataType  columnName="id" newDataType="bigint" tableName="product_order"/>
+        <modifyDataType  columnName="quantity" newDataType="int" tableName="product_order"/>
+        <modifyDataType  columnName="order_id" newDataType="bigint" tableName="product_order"/>
+        <modifyDataType  columnName="product_id" newDataType="bigint" tableName="product_order"/>
     </changeSet>
+
+    <changeSet id="2" author="s14985">
+        <addAutoIncrement columnName="id"
+                          columnDataType="bigint"
+                          defaultOnNull="true"
+                          generationType="ALWAYS"
+                          incrementBy="1"
+                          tableName="product_order"/>
+    </changeSet>
+
+<!--    <changeSet  author="s14985"  id="0">-->
+<!--        <createTable  tableName="product_order">-->
+<!--            <column  name="id"  type="bigint" autoIncrement="true"/>-->
+<!--            <column  name="quantity"  type="int"/>-->
+<!--            <column  name="order_id"  type="bigint"/>-->
+<!--            <column  name="product_id"  type="bigint"/>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet  author="s14985"  id="1">-->
+<!--        <loadData  file="liquibase/csv/product_orders.csv"-->
+<!--                   quotchar="'"-->
+<!--                   schemaName="public"-->
+<!--                   separator=","-->
+<!--                   tableName="product_order">-->
+<!--        </loadData>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>

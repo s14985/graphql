@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 export const findAllProducts = gql`
 	query {
 		findAllProducts {
+      __typename
 			id
 			name
 			price
@@ -32,6 +33,7 @@ export const newProduct = gql`
 			color: $color
 			material: $material
 		) {
+      __typename
 			id
 			name
 			price
@@ -74,6 +76,7 @@ export const editProduct = gql`
 			color: $color
 			material: $material
 		) {
+      __typename
 			id
 			name
 			price
@@ -90,6 +93,7 @@ export const editProduct = gql`
 export const newOrder = gql`
 	mutation($productOrders: [NewProductOrderInput!]!) {
 		newOrder(productOrders: $productOrders) {
+      __typename
 			id
 			status
 			dateCreated
@@ -103,6 +107,7 @@ export const newOrder = gql`
 export const getProductDetails = gql`
 	query($id: ID!) {
 		findProductById(id: $id) {
+      __typename
 			id
 			name
 			price
@@ -115,8 +120,13 @@ export const getProductDetails = gql`
 		}
 		findAllProductsFromOrdersByProductId(id: $id) {
 			order {
+        __typename
+        id
 				productOrders {
+          __typename
+          id
 					product {
+            __typename
 						id
 						name
 						price

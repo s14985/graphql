@@ -2,6 +2,7 @@ type ProductOrder {
 	id: ID!
 	order: Order
 	product: Product
+	quantity: Int
 }
 
 input NewProductOrderInput {

@@ -15,9 +15,7 @@ export class GraphQLModule {
 		// create Apollo
 		apollo.create({
 			link: httpLink.create({ uri }),
-			cache: new InMemoryCache({
-				addTypename: false,
-			}),
+			cache: new InMemoryCache({}),
 			defaultOptions: {
 				watchQuery: {
 					fetchPolicy: 'network-only', // disabling cache for fetch
