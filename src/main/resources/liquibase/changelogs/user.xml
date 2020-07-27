@@ -1,0 +1,44 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="0" author="s14985">
+        <sql  dbms="h2">
+            CREATE TABLE USER AS SELECT * FROM CSVREAD('src\main\resources\liquibase\csv\users.csv');
+        </sql>
+    </changeSet>
+
+    <changeSet id="1" author="s14985">
+        <modifyDataType  columnName="id" newDataType="bigint" tableName="user"/>
+        <modifyDataType  columnName="address_id" newDataType="bigint" tableName="user"/>
+    </changeSet>
+
+    <changeSet id="2" author="s14985">
+        <addAutoIncrement columnName="id"
+                          columnDataType="bigint"
+                          defaultOnNull="true"
+                          generationType="ALWAYS"
+                          incrementBy="1"
+                          tableName="user"/>
+    </changeSet>
+
+    <!--    <changeSet  id="0" author="s14985">-->
+    <!--        <createTable  tableName="orders">-->
+    <!--            <column  name="id"  type="bigint" autoIncrement="true"/>-->
+    <!--            <column  name="date_created"  type="datetime"/>-->
+    <!--            <column  name="status"  type="int"/>-->
+    <!--        </createTable>-->
+    <!--    </changeSet>-->
+
+    <!--    <changeSet  id="1" author="s14985">-->
+    <!--        <loadData  file="liquibase/csv/orders.csv"-->
+    <!--                   quotchar="'"-->
+    <!--                   separator=","-->
+    <!--                   tableName="orders">-->
+    <!--        </loadData>-->
+    <!--    </changeSet>-->
+
+</databaseChangeLog>

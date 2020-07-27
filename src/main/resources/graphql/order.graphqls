@@ -5,6 +5,7 @@ type Order {
 	status: Status
 	dateCreated: DateTime
 	productOrders: [ProductOrder]
+	user: User
 }
 
 enum Status {

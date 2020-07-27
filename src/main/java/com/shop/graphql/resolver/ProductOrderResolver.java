@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class ProductOrderResolver implements GraphQLResolver<ProductOrder> {
-	private OrderService orderService;
-	private ProductService productService;
+	private final OrderService orderService;
+	private final ProductService productService;
 
 	public Order getOrder(ProductOrder productOrder) {
 		return orderService.getOrderById(productOrder.getOrder().getId());

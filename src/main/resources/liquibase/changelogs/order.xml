@@ -15,6 +15,7 @@
         <modifyDataType  columnName="id" newDataType="bigint" tableName="orders"/>
         <modifyDataType  columnName="date_created" newDataType="datetime" tableName="orders"/>
         <modifyDataType  columnName="status" newDataType="int" tableName="orders"/>
+        <modifyDataType  columnName="user_id" newDataType="bigint" tableName="orders"/>
     </changeSet>
 
     <changeSet id="2" author="s14985">

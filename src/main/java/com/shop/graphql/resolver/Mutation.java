@@ -3,18 +3,18 @@ package com.shop.graphql.resolver;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.shop.graphql.dto.input.EditProductOrderInput;
 import com.shop.graphql.dto.input.NewProductOrderInput;
-import com.shop.graphql.model.Order;
-import com.shop.graphql.model.Product;
-import com.shop.graphql.model.ProductOrder;
-import com.shop.graphql.model.Status;
+import com.shop.graphql.model.*;
 import com.shop.graphql.service.OrderService;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.ProductService;
+import com.shop.graphql.service.UserService;
+import lombok.AllArgsConstructor;
+import org.apache.commons.math3.random.RandomDataGenerator;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
@@ -22,9 +22,11 @@ public class Mutation implements GraphQLMutationResolver {
 	private final OrderService orderService;
 	private final ProductOrderService productOrderService;
 	private final ProductService productService;
+	private final UserService userService;
 
 	public Order newOrder(List<NewProductOrderInput> newProductOrderInputs) {
-		Order order = new Order(Status.CREATED);
+		User user = userService.getUserById(new RandomDataGenerator().nextLong(1L, 10000L));
+		Order order = new Order(Status.CREATED, user);
 		order = orderService.create(order);
 
 		Order finalOrder = order;

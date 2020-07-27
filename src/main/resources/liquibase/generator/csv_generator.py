@@ -22,13 +22,17 @@ def generate_orders_csv():
     with open('../csv/orders.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
 
-        headers = 'id,date_created,status'
+        headers = 'id,date_created,status,user_id'
         writer.writerow(headers.split(','))
 
         for i in range(50000):
             id = i + 1
             random_bool = random.randint(0, 1)
-            writer.writerow([id, now, random_bool])
+            if id <= 10000:
+                user_id = id
+            else:
+                user_id = random.randint(1, 10000)
+            writer.writerow([id, now, random_bool, user_id])
 
 def generate_product_orders_csv():
     with open('../csv/product_orders.csv', 'w', newline='') as csvfile:
@@ -47,7 +51,31 @@ def generate_product_orders_csv():
             random_10 = random.randint(1, 10)
             writer.writerow([id, order_id, product_id, random_10])
 
+def generate_address_csv():
+    with open('../csv/addresses.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+
+        headers = 'id,street,suite,city,zipcode'
+        writer.writerow(headers.split(','))
+
+        for i in range(10000):
+            id = i + 1
+            writer.writerow([id, 'street ' + str(id), 'suite ' + str(id), 'city ' + str(id), 'zipcode ' + str(id)])
+
+def generate_user_csv():
+    with open('../csv/users.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+
+        headers = 'id,username,first_name,last_name,address_id'
+        writer.writerow(headers.split(','))
+
+        for i in range(10000):
+            id = i + 1
+            writer.writerow([id, 'user_' + str(id), 'firstName ' + str(id), 'lastName ' + str(id), id])
+
 if __name__ == "__main__":
     generate_products_csv()
     generate_orders_csv()
     generate_product_orders_csv()
+    generate_address_csv()
+    generate_user_csv()

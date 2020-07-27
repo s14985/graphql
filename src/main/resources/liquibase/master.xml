@@ -16,5 +16,7 @@
     <include file="liquibase/changelogs/order.xml" />
     <include file="liquibase/changelogs/product.xml" />
     <include file="liquibase/changelogs/product_order.xml" />
+    <include file="liquibase/changelogs/address.xml" />
+    <include file="liquibase/changelogs/user.xml" />
 
 </databaseChangeLog>
