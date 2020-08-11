@@ -3,17 +3,13 @@ package com.shop.graphql.service;
 import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Product;
 import com.shop.graphql.repository.ProductRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Service
-@Transactional
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;

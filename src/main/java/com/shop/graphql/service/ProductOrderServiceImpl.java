@@ -5,14 +5,12 @@ import com.shop.graphql.model.ProductOrder;
 import com.shop.graphql.repository.ProductOrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
-@Transactional
 @AllArgsConstructor
 public class ProductOrderServiceImpl implements ProductOrderService {
 	private ProductOrderRepository productOrderRepository;

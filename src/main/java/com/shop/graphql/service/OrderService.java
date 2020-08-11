@@ -1,10 +1,11 @@
 package com.shop.graphql.service;
 
 import com.shop.graphql.model.Order;
+import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import org.springframework.validation.annotation.Validated;
 
 @Validated
 public interface OrderService {

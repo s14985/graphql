@@ -12,7 +12,6 @@ input NewProductOrderInput {
 
 input EditProductOrderInput {
 	id: ID!
-	orderId: ID!
 	productId: ID!
 	quantity: Int!
 }

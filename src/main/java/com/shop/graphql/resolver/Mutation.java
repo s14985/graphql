@@ -26,7 +26,7 @@ public class Mutation implements GraphQLMutationResolver {
 
 	public Order newOrder(List<NewProductOrderInput> newProductOrderInputs) {
 		User user = userService.getUserById(new RandomDataGenerator().nextLong(1L, 10000L));
-		Order order = new Order(Status.CREATED, user);
+		Order order = Order.builder().status(Status.CREATED).user(user).build();
 		order = orderService.create(order);
 
 		Order finalOrder = order;
@@ -36,13 +36,9 @@ public class Mutation implements GraphQLMutationResolver {
 				.map(
 					newProductOrderInput ->
 						productOrderService.create(
-							new ProductOrder(
-								finalOrder,
-								productService.getProductById(
-									newProductOrderInput.getProductId()
-								),
-								newProductOrderInput.getQuantity()
-							)
+								ProductOrder.builder().order(finalOrder).product(productService.getProductById(
+										newProductOrderInput.getProductId()
+								)).quantity(newProductOrderInput.getQuantity()).build()
 						)
 				)
 				.collect(Collectors.toList())
