@@ -6,11 +6,10 @@ import com.shop.graphql.model.ProductOrder;
 import com.shop.graphql.model.User;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.UserService;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.time.OffsetDateTime;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor

@@ -3,11 +3,10 @@ package com.shop.graphql.service;
 import com.shop.graphql.exception.ResourceNotFoundException;
 import com.shop.graphql.model.Product;
 import com.shop.graphql.repository.ProductRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor

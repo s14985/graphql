@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class UserResolver  implements GraphQLResolver<User> {
-    private final AddressService addressService;
+public class UserResolver implements GraphQLResolver<User> {
+	private final AddressService addressService;
 
-    public Address getAddress(User user) {
-        return addressService.getAddressById(user.getId());
-    }
+	public Address getAddress(User user) {
+		return addressService.getAddressById(user.getId());
+	}
 }

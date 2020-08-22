@@ -38,8 +38,8 @@ public class Product {
 	private String material;
 
 	@JsonIgnore
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	private List<ProductOrder> productOrders;
 
 	public Product(Long id) {

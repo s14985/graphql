@@ -8,13 +8,12 @@ import com.shop.graphql.service.OrderService;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.ProductService;
 import com.shop.graphql.service.UserService;
-import lombok.AllArgsConstructor;
-import org.apache.commons.math3.random.RandomDataGenerator;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.apache.commons.math3.random.RandomDataGenerator;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
@@ -25,7 +24,9 @@ public class Mutation implements GraphQLMutationResolver {
 	private final UserService userService;
 
 	public Order newOrder(List<NewProductOrderInput> newProductOrderInputs) {
-		User user = userService.getUserById(new RandomDataGenerator().nextLong(1L, 10000L));
+		User user = userService.getUserById(
+			new RandomDataGenerator().nextLong(1L, 10000L)
+		);
 		Order order = Order.builder().status(Status.CREATED).user(user).build();
 		order = orderService.create(order);
 
@@ -36,9 +37,16 @@ public class Mutation implements GraphQLMutationResolver {
 				.map(
 					newProductOrderInput ->
 						productOrderService.create(
-								ProductOrder.builder().order(finalOrder).product(productService.getProductById(
+							ProductOrder
+								.builder()
+								.order(finalOrder)
+								.product(
+									productService.getProductById(
 										newProductOrderInput.getProductId()
-								)).quantity(newProductOrderInput.getQuantity()).build()
+									)
+								)
+								.quantity(newProductOrderInput.getQuantity())
+								.build()
 						)
 				)
 				.collect(Collectors.toList())

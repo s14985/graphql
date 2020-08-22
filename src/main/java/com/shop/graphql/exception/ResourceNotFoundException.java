@@ -14,12 +14,12 @@ public class ResourceNotFoundException
 	private Map<String, Object> extensions = new HashMap<>();
 
 	public ResourceNotFoundException(
-		String resourse,
+		String resource,
 		String paramName,
 		String param
 	) {
 		super(
-			StringUtils.capitalize(resourse) +
+			StringUtils.capitalize(resource) +
 			" with " +
 			StringUtils.capitalize(paramName) +
 			": " +
@@ -28,7 +28,7 @@ public class ResourceNotFoundException
 		);
 		extensions.put(
 			"invalid" +
-			StringUtils.capitalize(resourse) +
+			StringUtils.capitalize(resource) +
 			"_" +
 			StringUtils.capitalize(paramName),
 			param

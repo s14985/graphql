@@ -2,9 +2,12 @@ import xml.etree.ElementTree as ET
 import xlsxwriter
 import os
 import csv
+from datetime import date
+
+today = date.today()
 
 path = 'E:\\Skróty\\KOR\\Studia\\Praca_inz\\apache-jmeter-5.3\\bin\\output'
-workbook = xlsxwriter.Workbook('C:\\Users\\Cross\\Desktop\\xlsx\\responses_total.xlsx')
+workbook = xlsxwriter.Workbook('C:\\Users\\Cross\\Desktop\\xlsx\\responses_total_' + str(today) + '.xlsx')
 csvfile = 'C:\\Users\\Cross\\Desktop\\xlsx\\summary_report.csv'
 
 for filename in os.listdir(path):

@@ -7,10 +7,9 @@ import com.shop.graphql.model.ProductOrder;
 import com.shop.graphql.service.OrderService;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.ProductService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @AllArgsConstructor

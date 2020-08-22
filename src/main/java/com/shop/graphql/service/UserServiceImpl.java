@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
-    private final UserRepository userRepository;
+public class UserServiceImpl implements UserService {
+	private final UserRepository userRepository;
 
-    @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user", "id", id.toString()));
-    }
+	@Override
+	public User getUserById(Long id) {
+		return userRepository
+			.findById(id)
+			.orElseThrow(
+				() -> new ResourceNotFoundException("user", "id", id.toString())
+			);
+	}
 }

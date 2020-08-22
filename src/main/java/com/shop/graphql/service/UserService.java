@@ -5,5 +5,5 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 public interface UserService {
-    User getUserById(Long id);
+	User getUserById(Long id);
 }

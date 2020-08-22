@@ -5,5 +5,5 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 public interface AddressService {
-    Address getAddressById(Long id);
+	Address getAddressById(Long id);
 }
