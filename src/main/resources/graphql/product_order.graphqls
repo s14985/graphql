@@ -10,12 +10,6 @@ input NewProductOrderInput {
 	quantity: Int!
 }
 
-input EditProductOrderInput {
-	id: ID!
-	productId: ID!
-	quantity: Int!
-}
-
 extend type Query {
 	findAllProductsFromOrdersByProductId(id: ID!): [ProductOrder]!
 }

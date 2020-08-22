@@ -1,19 +1,19 @@
 package com.shop.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.shop.graphql.dto.input.EditProductOrderInput;
 import com.shop.graphql.dto.input.NewProductOrderInput;
 import com.shop.graphql.model.*;
 import com.shop.graphql.service.OrderService;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.ProductService;
 import com.shop.graphql.service.UserService;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -52,38 +52,6 @@ public class Mutation implements GraphQLMutationResolver {
 				.collect(Collectors.toList())
 		);
 
-		return orderService.update(order);
-	}
-
-	public Order editOrder(
-		Long id,
-		List<EditProductOrderInput> editProductOrderInputs
-	) {
-		Order order = orderService.getOrderById(id);
-		order.setProductOrders(
-			editProductOrderInputs
-				.stream()
-				.map(
-					newProductOrderInput -> {
-						ProductOrder productOrder = productOrderService.getById(
-							newProductOrderInput.getId()
-						);
-						productOrder.setOrder(order);
-						productOrder.setProduct(
-							productService.getProductById(newProductOrderInput.getProductId())
-						);
-						productOrder.setQuantity(newProductOrderInput.getQuantity());
-						return productOrderService.create(productOrder);
-					}
-				)
-				.collect(Collectors.toList())
-		);
-		return orderService.update(order);
-	}
-
-	public Order finishOrder(Long id) {
-		Order order = orderService.getOrderById(id);
-		order.setStatus(Status.FINISHED);
 		return orderService.update(order);
 	}
 

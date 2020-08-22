@@ -3,11 +3,10 @@ package com.shop.graphql.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
-
-import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
+import javax.persistence.*;
+import lombok.*;
 
 @Data
 @Entity
