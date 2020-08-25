@@ -7,13 +7,12 @@ import com.shop.graphql.service.OrderService;
 import com.shop.graphql.service.ProductOrderService;
 import com.shop.graphql.service.ProductService;
 import com.shop.graphql.service.UserService;
-import lombok.AllArgsConstructor;
-import org.apache.commons.math3.random.RandomDataGenerator;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.apache.commons.math3.random.RandomDataGenerator;
+import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
