@@ -1,10 +1,10 @@
 package com.shop.graphql.resolver;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
-
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 
 public class GraphQLProductIntegrationTest {
 	private static final String GRAPHQL_URL = "http://localhost:8081/graphql";
@@ -39,6 +39,8 @@ public class GraphQLProductIntegrationTest {
 			.body("data.findProductById.id", is("1"))
 			.and()
 			.body("data.findProductById.name", is("product 1"))
+			.and()
+			.body("data.findProductById.productOrders.size()", is(4))
 			.and()
 			.body("data.findProductById.productOrders[0].id", is("14947"));
 	}
