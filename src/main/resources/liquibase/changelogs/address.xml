@@ -7,7 +7,7 @@
 
     <changeSet id="0" author="s14985">
         <sql  dbms="h2">
-            CREATE TABLE ADDRESS AS SELECT * FROM CSVREAD('src\main\resources\liquibase\csv\addresses.csv');
+            CREATE TABLE ADDRESS AS SELECT * FROM CSVREAD('src/main/resources/liquibase/csv/addresses.csv');
         </sql>
     </changeSet>
 
@@ -23,21 +23,5 @@
                           incrementBy="1"
                           tableName="address"/>
     </changeSet>
-
-    <!--    <changeSet  id="0" author="s14985">-->
-    <!--        <createTable  tableName="orders">-->
-    <!--            <column  name="id"  type="bigint" autoIncrement="true"/>-->
-    <!--            <column  name="date_created"  type="datetime"/>-->
-    <!--            <column  name="status"  type="int"/>-->
-    <!--        </createTable>-->
-    <!--    </changeSet>-->
-
-    <!--    <changeSet  id="1" author="s14985">-->
-    <!--        <loadData  file="liquibase/csv/orders.csv"-->
-    <!--                   quotchar="'"-->
-    <!--                   separator=","-->
-    <!--                   tableName="orders">-->
-    <!--        </loadData>-->
-    <!--    </changeSet>-->
 
 </databaseChangeLog>

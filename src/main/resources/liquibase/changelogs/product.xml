@@ -24,27 +24,4 @@
                           tableName="product"/>
     </changeSet>
 
-<!--    <changeSet  author="s14985"  id="0">-->
-<!--        <createTable  tableName="product">-->
-<!--            <column  name="id"  type="bigint" autoIncrement="true"/>-->
-<!--            <column  name="name"  type="varchar(255)"/>-->
-<!--            <column  name="price"  type="currency"/>-->
-<!--            <column  name="picture"  type="varchar(255)"/>-->
-<!--            <column  name="details"  type="varchar(255)"/>-->
-<!--            <column  name="manufacturer"  type="varchar(255)"/>-->
-<!--            <column  name="item_code"  type="varchar(255)"/>-->
-<!--            <column  name="color"  type="varchar(255)"/>-->
-<!--            <column  name="material"  type="varchar(255)"/>-->
-<!--        </createTable>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet  author="s14985"  id="1">-->
-<!--        <loadData  file="liquibase/csv/products.csv"-->
-<!--                   quotchar="'"-->
-<!--                   schemaName="public"-->
-<!--                   separator=","-->
-<!--                   tableName="product">-->
-<!--        </loadData>-->
-<!--    </changeSet>-->
-
 </databaseChangeLog>

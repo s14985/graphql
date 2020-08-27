@@ -26,22 +26,4 @@
                           tableName="product_order"/>
     </changeSet>
 
-<!--    <changeSet  author="s14985"  id="0">-->
-<!--        <createTable  tableName="product_order">-->
-<!--            <column  name="id"  type="bigint" autoIncrement="true"/>-->
-<!--            <column  name="quantity"  type="int"/>-->
-<!--            <column  name="order_id"  type="bigint"/>-->
-<!--            <column  name="product_id"  type="bigint"/>-->
-<!--        </createTable>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet  author="s14985"  id="1">-->
-<!--        <loadData  file="liquibase/csv/product_orders.csv"-->
-<!--                   quotchar="'"-->
-<!--                   schemaName="public"-->
-<!--                   separator=","-->
-<!--                   tableName="product_order">-->
-<!--        </loadData>-->
-<!--    </changeSet>-->
-
 </databaseChangeLog>
